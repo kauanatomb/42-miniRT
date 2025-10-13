@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,11 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "miniRT.h"
+#ifndef MINIRT_H
+# define MINIRT_H
 
-int	main(int argc, char **argv)
+# include "libft.h"
+# include "mlx.h"
+
+typedef struct s_rt
 {
-	(void)argv;
-	(void)argc;
-	return (0);
-}
+	int		win_w;
+	int		win_h;
+	// t_mlbx	*mlbx;
+	// t_scene	*sc;
+}	t_rt;
+
+#endif
