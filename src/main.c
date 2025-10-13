@@ -19,13 +19,13 @@ int	main(int argc, char **argv)
 	(void)argv;
 	if (argc != 2)
 	{
-		ft_putstr_fd("Args needed: ./miniRT [scene_file]\n", 2);
+		print_error("Args needed: ./miniRT [scene_file]");
 		return (1);
 	}
 	rt = ft_calloc(sizeof(t_rt), 1);
 	if (!rt)
 		return (print_error("Malloc error rt"));
-	if (file_parsing(argv[1], rt))
+	if (!file_parsing(argv[1], rt))
 		return (free(rt), 1);
 	return (0);
 }

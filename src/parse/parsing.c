@@ -38,5 +38,5 @@ int	file_parsing(char *file, t_rt *rt)
 		return (close(fd), print_error("Empty file"));
 	if (close(fd) == -1)
 		return (print_error("Error close file"));
-	return (0);
+	return (1);
 }

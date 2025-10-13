@@ -14,6 +14,8 @@
 
 int	print_error(char *error_message)
 {
-	ft_printf("%s\n", error_message);
-	return (1);
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(error_message, 2);
+	ft_putchar_fd('\n', 2);
+	return (0);
 }
