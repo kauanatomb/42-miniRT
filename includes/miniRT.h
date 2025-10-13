@@ -17,6 +17,14 @@
 # include "mlx.h"
 # include <fcntl.h>
 
+// typedef struct s_scene
+// {
+// 	t_ambient	amb;
+// 	t_camera	cam;
+// 	t_light		light;
+// 	t_objects	*obj;
+// }	t_scene;
+
 typedef struct s_rt
 {
 	int		win_w;
