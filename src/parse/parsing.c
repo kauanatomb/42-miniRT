@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,31 @@
 
 #include "miniRT.h"
 
-int	main(int argc, char **argv)
+static int	check_filename(char *file)
 {
-	t_rt	*rt;
+	int	len;
 
-	(void)argv;
-	if (argc != 2)
-	{
-		ft_putstr_fd("Args needed: ./miniRT [scene_file]\n", 2);
-		return (1);
-	}
-	rt = ft_calloc(sizeof(t_rt), 1);
-	if (!rt)
-		return (print_error("Malloc error rt"));
-	if (file_parsing(argv[1], rt))
-		return (free(rt), 1);
+	len = ft_strlen(file) - 1;
+	if (!(file[len - 2] == '.' && file[len - 1] == 'r' && file[len] == 't'))
+		return (0);
+	return (1);
+}
+
+int	file_parsing(char *file, t_rt *rt)
+{
+	int		fd;
+	char	*line;
+
+	(void)rt;
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		return (print_error("File error"));
+	if (!check_filename(file))
+		return (close(fd), print_error("Wrong scene format"));
+	line = get_next_line(fd);
+	if (!line)
+		return (close(fd), print_error("Empty file"));
+	if (close(fd) == -1)
+		return (print_error("Error close file"));
 	return (0);
 }

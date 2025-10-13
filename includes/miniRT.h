@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "mlx.h"
+# include <fcntl.h>
 
 typedef struct s_rt
 {
@@ -23,5 +24,8 @@ typedef struct s_rt
 	// t_mlbx	*mlbx;
 	// t_scene	*sc;
 }	t_rt;
+
+int		file_parsing(char *file, t_rt *rt);
+int		print_error(char *error_message);
 
 #endif

@@ -12,7 +12,7 @@
 
 NAME    := miniRT
 
-SRC     := src/main.c
+SRC     := src/main.c src/errors.c src/parse/parsing.c
 
 OBJ     := $(SRC:.c=.o)
 

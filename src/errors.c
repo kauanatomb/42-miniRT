@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,20 +12,8 @@
 
 #include "miniRT.h"
 
-int	main(int argc, char **argv)
+int	print_error(char *error_message)
 {
-	t_rt	*rt;
-
-	(void)argv;
-	if (argc != 2)
-	{
-		ft_putstr_fd("Args needed: ./miniRT [scene_file]\n", 2);
-		return (1);
-	}
-	rt = ft_calloc(sizeof(t_rt), 1);
-	if (!rt)
-		return (print_error("Malloc error rt"));
-	if (file_parsing(argv[1], rt))
-		return (free(rt), 1);
-	return (0);
+	ft_printf("%s\n", error_message);
+	return (1);
 }
