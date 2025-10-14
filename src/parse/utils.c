@@ -11,3 +11,12 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
+
+int	ambiance_parsing(char *line, t_rt *rt)
+{
+	(void)line;
+	if (rt->sc->has_amb)
+		return (print_error("Too many ambiance lights (1 or 0 needed)"));
+	rt->sc->has_amb = true;
+	return (1);
+}

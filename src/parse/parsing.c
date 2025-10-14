@@ -39,22 +39,27 @@ static char	*clean_line(char *line)
 	return (line);
 }
 
-void	line_parsing(int f, char *line, t_rt *rt, int i)
+int	line_parsing(int fd, char *line, t_rt *rt, int i)
 {
+	int	ret;
+
+	(void)i;
 	while (line)
 	{
 		if (ft_strncmp("A ", line, 2) == 0)
-			ambience_parsing(line, rt);
+			ret = ambiance_parsing(line, rt);
 		// else if (ft_strncmp("C ", line, 2) == 0)
 		// 	camera_parsing(line, rt);
 		// else if (ft_strncmp("L ", line, 2) == 0)
 		// 	light_parsing(line, rt);
 		free(line);
+		if (!ret)
+			return (0);
 		line = get_next_line(fd);
 		if (line)
 			line = clean_line(line);
 	}
-	free(line);
+	return (free(line), 1);
 }
 
 int	file_parsing(char *file, t_rt *rt)
@@ -76,8 +81,9 @@ int	file_parsing(char *file, t_rt *rt)
 		return (close(fd), print_error("Malloc fail scene"));
 	line = clean_line(line);
 	if (!line)
-		return (close(fd), print_error("Malloc fail ft_strtrim"))
-	line_parsing(fd, line, rt, 0);
+		return (close(fd), print_error("Malloc fail ft_strtrim"));
+	if (!line_parsing(fd, line, rt, 0))
+		return (close(fd), 0);
 	if (close(fd) == -1)
 		return (print_error("Close file"));
 	return (1);

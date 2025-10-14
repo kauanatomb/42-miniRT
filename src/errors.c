@@ -19,3 +19,12 @@ int	print_error(char *error_message)
 	ft_putchar_fd('\n', 2);
 	return (0);
 }
+
+void	clean_rt_scene(t_rt *rt)
+{
+	if (!rt)
+		return ;
+	if (rt->sc)
+		free(rt->sc);
+	free(rt);
+}
