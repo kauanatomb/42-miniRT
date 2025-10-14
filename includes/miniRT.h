@@ -54,5 +54,6 @@ int		file_parsing(char *file, t_rt *rt);
 int		print_error(char *error_message);
 void	clean_rt_scene(t_rt *rt);
 int		ambiance_parsing(char *line, t_rt *rt);
+int 	count_elements(char **ar);
 
 #endif

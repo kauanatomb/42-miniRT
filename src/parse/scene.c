@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,12 +12,17 @@
 
 #include "miniRT.h"
 
-int count_elements(char **arr)
+int	ambiance_parsing(char *line, t_rt *rt)
 {
-    int i;
+	char	**tab;
 
-    i = 0;
-    while (arr[i])
-        i++;
-    return (i);
+	if (rt->sc->has_amb)
+		return (print_error("Too many ambiance lights (1 or 0 needed)"));
+	tab = ft_split(line, ' ');
+	if (!tab)
+		return (print_error("Malloc failed"));
+	if (count_elements(tab) != 3)
+		return (print_error("Wrong number of elements for ambiance"));
+	rt->sc->has_amb = true;
+	return (1);
 }
