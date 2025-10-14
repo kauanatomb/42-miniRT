@@ -55,5 +55,9 @@ int		print_error(char *error_message);
 void	clean_rt_scene(t_rt *rt);
 int		ambiance_parsing(char *line, t_rt *rt);
 int 	count_elements(char **ar);
+int 	parse_ratio(char *str, float *ratio);
+void    free_tab(char **tab);
+int		is_float(char *str);
+float	s_to_f(char *str);
 
 #endif

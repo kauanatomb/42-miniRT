@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scene.c                                            :+:      :+:    :+:   */
+/*   conversions.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,36 @@
 
 #include "miniRT.h"
 
-int	ambiance_parsing(char *line, t_rt *rt)
+int	is_float(char *str)
 {
-	char	**tab;
+	bool	has_dot;
+	int		i;
 
-	if (rt->sc->has_amb)
-		return (print_error("Too many ambiance lights (1 or 0 needed)"));
-	tab = ft_split(line, ' ');
-	if (!tab)
-		return (print_error("Malloc failed"));
-	if (count_elements(tab) != 3)
+	i = 0;
+	has_dot = false;
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+	while (str[i])
 	{
-		free_tab(tab);
-		return (print_error("Wrong number of elements for ambiance"));
+		if (str[i] >= '0' && str[i] <= '9' && !has_dot)
+			i++;
+		else if (str[i] == '.' && str[i + 1])
+		{
+			if (has_dot)
+				return (0);
+			has_dot = true;
+			i++;
+		}
+		else if (str[i] >= '0' && str[i] <= '9' && has_dot)
+			i++;
+		else
+			return (0);
 	}
-	rt->sc->has_amb = true;
-	if (!parse_ratio(tab[1], &rt->sc->amb.ratio))
-		return (free_tab(tab), 0);
-	// if (!parse_color(tab[2], &rt->sc->amb.color))
-	// 	return (free_tab(tab), 0);
-	free_tab(tab);
+	return (1);
+}
+
+float	s_to_f(char *str)
+{
+	(void)str;
 	return (1);
 }

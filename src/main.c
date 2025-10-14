@@ -26,5 +26,6 @@ int	main(int argc, char **argv)
 		return (print_error("Malloc error rt"));
 	if (!file_parsing(argv[1], rt))
 		return (clean_rt_scene(rt), 1);
+	clean_rt_scene(rt);
 	return (0);
 }
