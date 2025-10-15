@@ -25,6 +25,20 @@ typedef struct s_color
 	int	b;
 }	t_color;
 
+typedef struct s_v3d
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_v3d;
+
+typedef struct s_camera
+{
+	float	fov;
+	t_v3d	coord;
+	t_v3d	ori;
+}	t_camera;
+
 typedef struct s_ambient
 {
 	float	ratio;
@@ -34,7 +48,7 @@ typedef struct s_ambient
 typedef struct s_scene
 {
 	t_ambient	amb;
-	// t_camera	cam;
+	t_camera	cam;
 	// t_light		light;
 	// t_objects	*obj;
 	bool		has_amb;
@@ -50,13 +64,16 @@ typedef struct s_rt
 	t_scene	*sc;
 }	t_rt;
 
-int		file_parsing(char *file, t_rt *rt);
 int		print_error(char *error_message);
 void	clean_rt_scene(t_rt *rt);
+int		file_parsing(char *file, t_rt *rt);
 int		ambiance_parsing(char *line, t_rt *rt);
+int		camera_parsing(char *line, t_rt *rt);
 int 	count_elements(char **ar);
 int 	parse_ratio(char *str, float *ratio);
 int		parse_color(char *str, t_color *color);
+int		parse_coord(char *str, t_v3d coord);
+int		parse_vector(char *str, t_v3d ori);
 void    free_tab(char **tab);
 int		is_float(char *str);
 float	s_to_f(char *str);

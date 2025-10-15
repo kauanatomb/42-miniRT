@@ -48,8 +48,8 @@ int	line_parsing(int fd, char *line, t_rt *rt, int i)
 	{
 		if (ft_strncmp("A ", line, 2) == 0)
 			ret = ambiance_parsing(line, rt);
-		// else if (ft_strncmp("C ", line, 2) == 0)
-		// 	camera_parsing(line, rt);
+		else if (ft_strncmp("C ", line, 2) == 0)
+			ret = camera_parsing(line, rt);
 		// else if (ft_strncmp("L ", line, 2) == 0)
 		// 	light_parsing(line, rt);
 		free(line);
