@@ -51,8 +51,8 @@ int	camera_parsing(char *line, t_rt *rt)
 		return (free_tab(tab), 0);
 	if (!parse_vector(tab[2], rt->sc->cam.ori))
 		return (free_tab(tab), 0);
-	// if (!parse_general(tab[1], rt->sc->cam->fov))
-	// 	return (free_tab(tab), 0);
+	if (!parse_general(tab[3], rt->sc->cam.fov, 1))
+		return (free_tab(tab), 0);
 	free_tab(tab);
 	return (1);
 }

@@ -74,6 +74,7 @@ int 	parse_ratio(char *str, float *ratio);
 int		parse_color(char *str, t_color *color);
 int		parse_coord(char *str, t_v3d coord);
 int		parse_vector(char *str, t_v3d ori);
+int		parse_general(char *str, float fov, int i);
 void    free_tab(char **tab);
 int		is_float(char *str);
 float	s_to_f(char *str);

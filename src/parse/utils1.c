@@ -32,3 +32,16 @@ int	parse_vector(char *str, t_v3d ori)
 	free_tab(tab);
 	return (1);
 }
+
+int	parse_general(char *str, float fov, int i)
+{
+	if (!is_float(str))
+		return (print_error("Invalid float format"));
+	fov = s_to_f(str);
+	if (i == 1)
+	{
+		if (fov > 180 || fov < 0)
+			return (print_error("Invalid range for FOV"));
+	}
+	return (1);
+}
