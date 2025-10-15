@@ -42,6 +42,28 @@ int	is_float(char *str)
 
 float	s_to_f(char *str)
 {
-	(void)str;
-	return (1);
+	float	res;
+	float	fract;
+	float	div;
+	float	sign;
+
+	div = 1.0;
+	fract = 0.0;
+	sign = 1.0;
+	if (*str && str[0] == '-')
+		sign *= -1.0;
+	res = (float)ft_atoi(str);
+	while (*str && *str != '.')
+		str++;
+	while (*str)
+	{
+		if (*str >= '0' && *str <= '9')
+		{
+			div *= 10.0;
+			fract += (*str - '0') / div;
+		}
+		str++;
+	}
+	fract *= sign;
+	return (res + fract);
 }

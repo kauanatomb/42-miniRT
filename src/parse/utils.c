@@ -12,34 +12,34 @@
 
 #include "miniRT.h"
 
-int count_elements(char **arr)
+int	count_elements(char **arr)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (arr[i])
-        i++;
-    return (i);
+	i = 0;
+	while (arr[i])
+		i++;
+	return (i);
 }
 
-int parse_ratio(char *str, float *ratio)
+int	parse_ratio(char *str, float *ratio)
 {
-    if (!is_float(str))
-        return (print_error("Wrong ratio"));
-    *ratio = s_to_f(str);
-    if (*ratio >= 0 && *ratio <= 1)
-        return (1);
-    else
-        return (print_error("Wrong ratio"));
-    return (1);
+	if (!is_float(str))
+		return (print_error("Invalid float format ratio"));
+	*ratio = s_to_f(str);
+	if (*ratio >= 0 && *ratio <= 1)
+		return (1);
+	else
+		return (print_error("Radio out of range [0.0,1.0]"));
+	return (1);
 }
 
-void    free_tab(char **tab)
+void	free_tab(char **tab)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (tab[i])
-        free(tab[i++]);
-    free(tab);
+	i = 0;
+	while (tab[i])
+		free(tab[i++]);
+	free(tab);
 }
