@@ -29,8 +29,8 @@ int	ambiance_parsing(char *line, t_rt *rt)
 	rt->sc->has_amb = true;
 	if (!parse_ratio(tab[1], &rt->sc->amb.ratio))
 		return (free_tab(tab), 0);
-	// if (!parse_color(tab[2], &rt->sc->amb.color))
-	// 	return (free_tab(tab), 0);
+	if (!parse_color(tab[2], &rt->sc->amb.color))
+		return (free_tab(tab), 0);
 	free_tab(tab);
 	return (1);
 }

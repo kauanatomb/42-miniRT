@@ -56,6 +56,7 @@ void	clean_rt_scene(t_rt *rt);
 int		ambiance_parsing(char *line, t_rt *rt);
 int 	count_elements(char **ar);
 int 	parse_ratio(char *str, float *ratio);
+int		parse_color(char *str, t_color *color);
 void    free_tab(char **tab);
 int		is_float(char *str);
 float	s_to_f(char *str);

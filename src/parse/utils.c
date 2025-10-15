@@ -34,6 +34,25 @@ int	parse_ratio(char *str, float *ratio)
 	return (1);
 }
 
+int	parse_color(char *str, t_color *color)
+{
+	char	**tab;
+
+	tab = ft_split(str, ',');
+	if (!tab)
+		return (print_error("Malloc failed"));
+	if (count_elements(tab) != 3)
+		return (free_tab(tab), print_error("RGB needs 3 values"));
+	color->r = ft_atoi(tab[0]);
+	color->g = ft_atoi(tab[1]);
+	color->b = ft_atoi(tab[2]);
+	if (color->r < 0 || color->r > 255 || color->g < 0 || color->g > 255
+		|| color->b < 0 || color->b > 255)
+		return (free_tab(tab), print_error("Wrong RGB range"));
+	free_tab(tab);
+	return (1);
+}
+
 void	free_tab(char **tab)
 {
 	int	i;
