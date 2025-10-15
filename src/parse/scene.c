@@ -56,3 +56,25 @@ int	camera_parsing(char *line, t_rt *rt)
 	free_tab(tab);
 	return (1);
 }
+
+int	light_parsing(char *line, t_rt *rt)
+{
+	char	**tab;
+
+	if (rt->sc->has_light)
+		return (print_error("Too many lights (1 or 0 needed)"));
+	tab = ft_split(line, ' ');
+	if (!tab)
+		return (print_error("Malloc failed"));
+	if (count_elements(tab) != 4)
+		return (free_tab(tab), print_error("Wrong elements number for light"));
+	rt->sc->has_light = true;
+	if (!parse_coord(tab[1], &rt->sc->light.coord))
+		return (free_tab(tab), 0);
+	if (!parse_ratio(tab[2], &rt->sc->light.ratio))
+		return (free_tab(tab), 0);
+	if (!parse_color(tab[3], &rt->sc->light.color))
+		return (free_tab(tab), 0);
+	free_tab(tab);
+	return (1);
+}
