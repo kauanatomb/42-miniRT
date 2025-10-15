@@ -53,7 +53,7 @@ int	parse_color(char *str, t_color *color)
 	return (1);
 }
 
-int	parse_coord(char *str, t_v3d coord)
+int	parse_coord(char *str, t_v3d *coord)
 {
 	char	**tab;
 
@@ -64,9 +64,9 @@ int	parse_coord(char *str, t_v3d coord)
 		return (free_tab(tab), print_error("Coordinates needs 3 values"));
 	if (!is_float(tab[0]) || !is_float(tab[1]) || !is_float(tab[2]))
 		return (print_error("Invalid float format coordinates"));
-	coord.x = s_to_f(tab[0]);
-	coord.y = s_to_f(tab[1]);
-	coord.z = s_to_f(tab[2]);
+	coord->x = s_to_f(tab[0]);
+	coord->y = s_to_f(tab[1]);
+	coord->z = s_to_f(tab[2]);
 	free_tab(tab);
 	return (1);
 }

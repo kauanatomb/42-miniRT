@@ -12,7 +12,7 @@
 
 #include "miniRT.h"
 
-int	parse_vector(char *str, t_v3d ori)
+int	parse_vector(char *str, t_v3d *ori)
 {
 	char	**tab;
 
@@ -23,24 +23,24 @@ int	parse_vector(char *str, t_v3d ori)
 		return (free_tab(tab), print_error("Orientation needs 3 values"));
 	if (!is_float(tab[0]) || !is_float(tab[1]) || !is_float(tab[2]))
 		return (free_tab(tab), print_error("Invalid float format orientation"));
-	ori.x = s_to_f(tab[0]);
-	ori.y = s_to_f(tab[1]);
-	ori.z = s_to_f(tab[2]);
-	if (ori.x < -1 || ori.x > 1 || ori.y < -1 || ori.y > 1
-		|| ori.z < -1 || ori.z > 1)
+	ori->x = s_to_f(tab[0]);
+	ori->y = s_to_f(tab[1]);
+	ori->z = s_to_f(tab[2]);
+	if (ori->x < -1 || ori->x > 1 || ori->y < -1 || ori->y > 1
+		|| ori->z < -1 || ori->z > 1)
 		return (free_tab(tab), print_error("Wrong orientation vector range"));
 	free_tab(tab);
 	return (1);
 }
 
-int	parse_general(char *str, float fov, int i)
+int	parse_general(char *str, float *fov, int i)
 {
 	if (!is_float(str))
 		return (print_error("Invalid float format"));
-	fov = s_to_f(str);
+	*fov = s_to_f(str);
 	if (i == 1)
 	{
-		if (fov > 180 || fov < 0)
+		if (*fov > 180 || *fov < 0)
 			return (print_error("Invalid range for FOV"));
 	}
 	return (1);
