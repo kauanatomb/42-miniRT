@@ -32,7 +32,7 @@ int	parse_vector(char *str, t_v3d *ori)
 		return (free_tab(tab), print_error("Wrong orientation vector range"));
 	len = sqrt(ori->x * ori->x + ori->y * ori->y + ori->z * ori->z);
 	if (fabs(len - 1.0) > 1e-6)
-		return (free_tab(tab), print_error("Orientation vector not normalized"));
+		return (free_tab(tab), print_error("Vector not normalized"));
 	free_tab(tab);
 	return (1);
 }
