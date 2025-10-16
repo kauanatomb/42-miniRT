@@ -32,8 +32,10 @@ int		parse_color(char *str, t_color *color);
 int		parse_coord(char *str, t_v3d *coord);
 int		parse_vector(char *str, t_v3d *ori);
 int		parse_general(char *str, float *fov, int i);
+int	    sphere_parsing(char *line, t_rt *rt);
 void	free_tab(char **tab);
 int		is_float(char *str);
 float	s_to_f(char *str);
+void	add_obj_to_rt(t_rt *rt, t_objects *obj_created);
 
 #endif

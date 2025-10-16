@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,37 +11,30 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
+#include <stdio.h>
 
-int	print_error(char *error_message)
+int	sphere_parsing(char *line, t_rt *rt)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd(error_message, 2);
-	ft_putchar_fd('\n', 2);
-	return (0);
-}
+	char		**tab;
+	t_objects	*obj;
 
-void	free_objects(t_objects *objs)
-{
-	t_objects	*tmp;
-
-	while (objs->next)
-	{
-		tmp = objs->next;
-		free(objs);
-		objs = tmp;
-	}
-	free(objs);
-}
-
-void	clean_rt_scene(t_rt *rt)
-{
-	if (!rt)
-		return ;
-	if (rt->sc)
-	{
-		if (rt->sc->obj)
-			free_objects(rt->sc->obj);
-		free(rt->sc);
-	}
-	free(rt);
+	tab = ft_split(line, ' ');
+	if (!tab)
+		return (print_error("Malloc failed"));
+	if (count_elements(tab) != 4)
+		return (free_tab(tab), print_error("Wrong number of elements(sphere)"));
+	obj = malloc(sizeof(t_objects));
+	if (!obj)
+		return (free_tab(tab), print_error("Malloc failed"));
+	obj->type = SPHERE;
+	obj->next = NULL;
+	if (!parse_coord(tab[1], &obj->fig.sp.coord))
+		return (free_tab(tab), 0);
+	if (!parse_general(tab[2], &obj->fig.sp.r, 0))
+		return (free_tab(tab), 0);
+	if (!parse_color(tab[3], &obj->fig.sp.color))
+		return (free_tab(tab), 0);
+	add_obj_to_rt(rt, obj);
+	free_tab(tab);
+	return (1);
 }

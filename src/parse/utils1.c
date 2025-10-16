@@ -37,15 +37,21 @@ int	parse_vector(char *str, t_v3d *ori)
 	return (1);
 }
 
-int	parse_general(char *str, float *fov, int i)
+int	parse_general(char *str, float *p, int i)
 {
 	if (!is_float(str))
 		return (print_error("Invalid float format"));
-	*fov = s_to_f(str);
+	*p = s_to_f(str);
 	if (i == 1)
 	{
-		if (*fov > 180 || *fov < 0)
+		if (*p > 180 || *p < 0)
 			return (print_error("Invalid range for FOV"));
 	}
 	return (1);
+}
+
+void	add_obj_to_rt(t_rt *rt, t_objects *obj_created)
+{
+	obj_created->next = rt->sc->obj;
+	rt->sc->obj = obj_created;
 }
