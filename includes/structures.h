@@ -60,7 +60,7 @@ typedef struct s_cylinder
 {
 	t_v3d	coord;
 	t_v3d	ori;
-	float	r;
+	float	d;
 	float	h;
 	t_color	color;
 }	t_cylinder;

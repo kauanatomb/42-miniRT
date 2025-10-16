@@ -56,6 +56,8 @@ int	line_parsing(int fd, char *line, t_rt *rt, int i)
 			ret = sphere_parsing(line, rt);
 		else if (ft_strncmp("pl ", line, 3) == 0)
 			ret = plane_parsing(line, rt);
+		else if (ft_strncmp("cy ", line, 3) == 0)
+			ret = cy_parsing(line, rt);
 		free(line);
 		if (!ret)
 			return (0);
