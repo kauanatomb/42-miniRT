@@ -17,6 +17,7 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <stdbool.h>
+# include <math.h>
 
 typedef struct s_color
 {
