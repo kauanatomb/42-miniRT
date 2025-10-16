@@ -54,6 +54,8 @@ int	line_parsing(int fd, char *line, t_rt *rt, int i)
 			ret = light_parsing(line, rt);
 		else if (ft_strncmp("sp ", line, 3) == 0)
 			ret = sphere_parsing(line, rt);
+		else if (ft_strncmp("pl ", line, 3) == 0)
+			ret = plane_parsing(line, rt);
 		free(line);
 		if (!ret)
 			return (0);
@@ -69,7 +71,6 @@ int	file_parsing(char *file, t_rt *rt)
 	int		fd;
 	char	*line;
 
-	(void)rt;
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 		return (print_error("Open file"));
