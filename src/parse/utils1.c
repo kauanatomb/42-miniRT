@@ -47,6 +47,11 @@ int	parse_general(char *str, float *p, int i)
 		if (*p > 180 || *p < 0)
 			return (print_error("Invalid range for FOV"));
 	}
+	else
+	{
+		if (*p < 0)
+			return (print_error("Invalid diameter/height: cannot be negative"));
+	}
 	return (1);
 }
 
