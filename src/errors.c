@@ -41,6 +41,11 @@ void	clean_rt_scene(t_rt *rt)
 	{
 		if (rt->sc->obj)
 			free_objects(rt->sc->obj);
+		if (rt->mlbx)
+		{
+			free(rt->mlbx->mlx);
+			free(rt->mlbx);
+		}
 		free(rt->sc);
 	}
 	free(rt);

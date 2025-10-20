@@ -104,11 +104,27 @@ typedef struct s_scene
 	bool		has_light;
 }	t_scene;
 
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_p_pixel;
+	int		size_line;
+	int		endian;
+}	t_img;
+
+typedef struct s_mlbx
+{
+	void	*mlx;
+	void	*mlx_win;
+	t_img	img;
+}	t_mlbx;
+
 typedef struct s_rt
 {
 	int		win_w;
 	int		win_h;
-	// t_mlbx	*mlbx;
+	t_mlbx	*mlbx;
 	t_scene	*sc;
 }	t_rt;
 
