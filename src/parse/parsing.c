@@ -39,11 +39,10 @@ static char	*clean_line(char *line)
 	return (line);
 }
 
-int	line_parsing(int fd, char *line, t_rt *rt, int i)
+int	line_parsing(int fd, char *line, t_rt *rt)
 {
 	int	ret;
 
-	(void)i;
 	while (line)
 	{
 		if (ft_strncmp("A ", line, 2) == 0)
@@ -87,7 +86,7 @@ int	file_parsing(char *file, t_rt *rt)
 	line = clean_line(line);
 	if (!line)
 		return (close(fd), print_error("Malloc fail ft_strtrim"));
-	if (!line_parsing(fd, line, rt, 0))
+	if (!line_parsing(fd, line, rt))
 		return (close(fd), 0);
 	if (close(fd) == -1)
 		return (print_error("Close file"));
