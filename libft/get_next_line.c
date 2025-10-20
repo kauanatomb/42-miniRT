@@ -22,11 +22,7 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-	{
-		free(stash);
-		stash = NULL;
-		return (NULL);
-	}
+		return (free(stash), NULL);
 	stash = fill_stash(fd, stash);
 	if (!stash)
 		return (NULL);

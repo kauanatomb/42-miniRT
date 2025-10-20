@@ -60,7 +60,7 @@ int	line_parsing(int fd, char *line, t_rt *rt, int i)
 			ret = cy_parsing(line, rt);
 		free(line);
 		if (!ret)
-			return (0);
+			return (get_next_line(-2), 0);
 		line = get_next_line(fd);
 		if (line)
 			line = clean_line(line);
