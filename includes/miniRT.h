@@ -40,5 +40,6 @@ int		is_float(char *str);
 float	s_to_f(char *str);
 void	add_obj_to_rt(t_rt *rt, t_objects *obj_created);
 void	make_window(t_rt *rt);
+void	launch_cam_rays(t_rt *rt);
 
 #endif

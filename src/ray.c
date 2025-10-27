@@ -12,23 +12,6 @@
 
 #include "miniRT.h"
 
-void	launch_cam_rays(t_rt *rt)
-{
-	float		x;
-	float		y;
-	t_cam_ray	cam_ray;
-
-	y = -1;
-	while (++y < rt->win_h)
-	{
-		x = -1;
-		while (++x < rt->win_w)
-		{
-			cam_ray = make_cam_ray(rt, make_v_dir(rt, x, y));
-		}
-	}
-}
-
 t_v3d	normalize(t_v3d v)
 {
 	float	len;
@@ -61,4 +44,23 @@ t_v3d	make_v_dir(t_rt *rt, float x, float y)
 	v_dir.y = 0 * right + 1 * up + 0 * forward;
 	v_dir.z = 0 * right + 0 * up + 1 * forward;
 	return (normalize(v_dir));
+}
+
+void	launch_cam_rays(t_rt *rt)
+{
+	float		x;
+	float		y;
+	t_cam_ray	cam_ray;
+
+	y = -1;
+	while (++y < rt->win_h)
+	{
+		x = -1;
+		while (++x < rt->win_w)
+		{
+			cam_ray.coord = rt->sc->cam.coord;
+			cam_ray.v_dir = make_v_dir(rt, x, y);
+			// cam_ray.inter = intersections(rt, &cam_ray);
+		}
+	}
 }
