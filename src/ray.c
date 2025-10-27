@@ -46,7 +46,7 @@ t_v3d	make_v_dir(t_rt *rt, float x, float y)
 	return (normalize(v_dir));
 }
 
-void	launch_cam_rays(t_rt *rt)
+int	launch_cam_rays(t_rt *rt)
 {
 	float		x;
 	float		y;
@@ -60,7 +60,10 @@ void	launch_cam_rays(t_rt *rt)
 		{
 			cam_ray.coord = rt->sc->cam.coord;
 			cam_ray.v_dir = make_v_dir(rt, x, y);
-			// cam_ray.inter = intersections(rt, &cam_ray);
+			if (!inter_closest(rt, &cam_ray))
+				return (0);
+
 		}
 	}
+	return (1);
 }
