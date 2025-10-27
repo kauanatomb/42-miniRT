@@ -23,7 +23,7 @@ int	main(int argc, char **argv)
 	}
 	rt = ft_calloc(sizeof(t_rt), 1);
 	if (!rt)
-		return (print_error("Malloc error rt"));
+		return (print_error("Malloc error rt"), 1);
 	rt->win_w = 1200;
 	rt->win_h = 800;
 	if (!file_parsing(argv[1], rt))

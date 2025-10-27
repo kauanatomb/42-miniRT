@@ -120,11 +120,20 @@ typedef struct s_mlbx
 	t_img	img;
 }	t_mlbx;
 
+typedef struct s_inter
+{
+	t_objects	*obj;
+	float		dist;
+	t_v3d		point;
+	t_v3d		normal;
+	t_color		c;
+}	t_inter;
+
 typedef struct s_cam_ray
 {
 	t_v3d	coord;
 	t_v3d	v_dir;
-	// t_inter	*inter;
+	t_inter	*inter;
 }	t_cam_ray;
 
 typedef struct s_rt

@@ -39,7 +39,8 @@ void	free_tab(char **tab);
 int		is_float(char *str);
 float	s_to_f(char *str);
 void	add_obj_to_rt(t_rt *rt, t_objects *obj_created);
-void	make_window(t_rt *rt);
-void	launch_cam_rays(t_rt *rt);
+int 	make_window(t_rt *rt);
+int 	launch_cam_rays(t_rt *rt);
+int	    inter_closest(t_rt *rt, t_cam_ray *cam_ray);
 
 #endif
