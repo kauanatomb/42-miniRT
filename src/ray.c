@@ -62,7 +62,6 @@ int	launch_cam_rays(t_rt *rt)
 			cam_ray.v_dir = make_v_dir(rt, x, y);
 			if (!inter_closest(rt, &cam_ray))
 				return (0);
-
 		}
 	}
 	return (1);
