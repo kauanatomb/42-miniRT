@@ -15,6 +15,7 @@ NAME    := miniRT
 SRC     := src/main.c src/errors.c src/parse/parsing.c src/parse/scene.c \
 		src/parse/utils.c src/parse/utils1.c src/parse/conversions.c \
 		src/parse/objects.c src/mlbx.c src/ray.c src/intersections.c \
+		src/math/matriz.c \
 
 OBJ     := $(SRC:.c=.o)
 

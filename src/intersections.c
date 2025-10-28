@@ -21,7 +21,7 @@ void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	tmp->dist = INFINITY;
 	plane = &obj->fig.pl;
 	plane->ori = normalize(plane->ori);
-	denom = dot_product(plane->ori, cam_ray->v_dir); // create dot_product function
+	denom = dot_product(plane->ori, cam_ray->v_dir);
 	if (fabs(denom) < 1e-6)
 		return ;// demon is paralel (without intersection)
 	t = dot_product(sub(plane->coord, cam_ray->coord), plane->ori) / denom; // create sub (a-b)
