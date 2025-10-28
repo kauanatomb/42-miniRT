@@ -17,12 +17,26 @@ float	dot_product(t_v3d a, t_v3d b)
 	return (a.x * b.x + a.y * b.y + a.z + b.z);
 }
 
+t_v3d	add(t_v3d a, t_v3d b)
+{
+	a.x += b.x;
+	a.y += b.y;
+	a.z += b.z;
+	return (a);
+}
+
+t_v3d	sc_mult(t_v3d a, float scalar)
+{
+	a.x *= scalar;
+	a.y *= scalar;
+	a.z *= scalar;
+	return (a);
+}
+
 t_v3d	sub(t_v3d a, t_v3d b)
 {
-	t_v3d	new;
-
-	new.x = a.x - b.x;
-	new.y = a.y - b.y;
-	new.z = a.z - b.z;
-	return (new);
+	a.x -= b.x;
+	a.y -= b.y;
+	a.z -= b.z;
+	return (a);
 }

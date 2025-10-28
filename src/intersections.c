@@ -24,13 +24,13 @@ void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	denom = dot_product(plane->ori, cam_ray->v_dir);
 	if (fabs(denom) < 1e-6)
 		return ;// demon is paralel (without intersection)
-	t = dot_product(sub(plane->coord, cam_ray->coord), plane->ori) / denom; // create sub (a-b)
-	if (t < E)
+	t = dot_product(sub(plane->coord, cam_ray->coord), plane->ori) / denom;
+	if (t < 1e-4)
 		return ;// behind the camera (withou intersection)
 	tmp->dist = t;
 	tmp->obj = obj;
-	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t)); /// create add (a+b) plus mult scalar (a*b)
-	tmp->point = add(tmp->point, sc_mult(tmp->normal, E));
+	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t));
+	tmp->point = add(tmp->point, sc_mult(tmp->normal, 1e-4));
 	tmp->normal = plane->ori;
 }
 

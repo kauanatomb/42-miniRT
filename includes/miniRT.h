@@ -42,5 +42,10 @@ void	add_obj_to_rt(t_rt *rt, t_objects *obj_created);
 int 	make_window(t_rt *rt);
 int 	launch_cam_rays(t_rt *rt);
 int	    inter_closest(t_rt *rt, t_cam_ray *cam_ray);
+float	dot_product(t_v3d a, t_v3d b);
+t_v3d	add(t_v3d a, t_v3d b);
+t_v3d	sub(t_v3d a, t_v3d b);
+t_v3d	sc_mult(t_v3d a, float scalar);
+t_v3d	normalize(t_v3d v);
 
 #endif
