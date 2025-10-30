@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   intersections.c                                    :+:      :+:    :+:   */
+/*   closest.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -54,6 +54,22 @@ void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	tmp->normal = normalize(sub(tmp->point, sphere->coord));
 }
 
+void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
+{
+	t_v3d		name;
+	t_cylinder	*cy;
+
+	tmp->dist = INFINITY;
+	cy = &obj->fig.cy;
+	name.x = cam_ray->coord.x - cy->coord.x;
+	name.y = cam_ray->coord.y - cy->coord.y;
+	name.z = cam_ray->coord.z - cy->coord.z;
+	// if (!quad_cy(cam_ray, tmp, cy, name))
+	// 	return ;
+	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, tmp->dist));
+	// tmp->normal = cy_normal(tmp->point, cy);
+}
+
 int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 {
 	t_inter		closest;
@@ -69,6 +85,8 @@ int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 			plane_inter(cam_ray, curr_obj, &tmp);
 		else if (curr_obj->type == SPHERE)
 			sphere_inter(cam_ray, curr_obj, &tmp);
+		else if (curr_obj->type == CYLINDER)
+			cy_inter(cam_ray, curr_obj, &tmp);
 		if (tmp.dist < closest.dist)
 			closest = tmp;
 		curr_obj = curr_obj->next;
