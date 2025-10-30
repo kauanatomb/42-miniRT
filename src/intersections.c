@@ -51,9 +51,6 @@ int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 			closest = tmp;
 		curr_obj = curr_obj->next;
 	}
-	cam_ray->inter = malloc(sizeof(t_inter));
-	if (!cam_ray->inter)
-		return (print_error("Malloc error intersections"));
-	*(cam_ray->inter) = closest;
+	cam_ray->inter = closest;
 	return (1);
 }

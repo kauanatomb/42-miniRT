@@ -133,7 +133,7 @@ typedef struct s_cam_ray
 {
 	t_v3d	coord;
 	t_v3d	v_dir;
-	t_inter	*inter;
+	t_inter	inter;
 }	t_cam_ray;
 
 typedef struct s_rt
