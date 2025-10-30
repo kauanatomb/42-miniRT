@@ -47,5 +47,6 @@ t_v3d	add(t_v3d a, t_v3d b);
 t_v3d	sub(t_v3d a, t_v3d b);
 t_v3d	sc_mult(t_v3d a, float scalar);
 t_v3d	normalize(t_v3d v);
+float	bhaskara(float a, float b, float c);
 
 #endif

@@ -34,6 +34,26 @@ void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	tmp->normal = plane->ori;
 }
 
+void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
+{
+	float		t;
+	t_v3d		oc;
+	t_sphere	*sphere;
+
+	tmp->dist = INFINITY;
+	sphere = &obj->fig.sp;
+	oc = sub(cam_ray->coord, sphere->coord);
+	t = bhaskara(dot_product(cam_ray->v_dir, cam_ray->v_dir), 2.0 * \
+	dot_product(oc, cam_ray->v_dir), dot_product(oc, oc) \
+	- sphere->r * sphere->r);
+	if (t < 0)
+		return ;
+	tmp->obj = obj;
+	tmp->dist = t;
+	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t));
+	tmp->normal = normalize(sub(tmp->point, sphere->coord));
+}
+
 int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 {
 	t_inter		closest;
@@ -47,6 +67,8 @@ int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 	{
 		if (curr_obj->type == PLANE)
 			plane_inter(cam_ray, curr_obj, &tmp);
+		else if (curr_obj->type == SPHERE)
+			sphere_inter(cam_ray, curr_obj, &tmp);
 		if (tmp.dist < closest.dist)
 			closest = tmp;
 		curr_obj = curr_obj->next;
