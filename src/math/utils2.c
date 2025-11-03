@@ -76,7 +76,7 @@ int	quad_cy(t_cam_ray *ray, t_inter *tmp, t_cylinder *cy, t_v3d oc)
 	quad[1] = 2 * (dot_product(ray->v_dir, oc) - \
 	(dot_product(ray->v_dir, cy->ori) * dot_product(oc, cy->ori)));
 	quad[2] = dot_product(oc, oc) - \
-	pow(dot_product(oc, cy->ori), 2) - cy->d;
+	pow(dot_product(oc, cy->ori), 2) - pow(cy->r, 2);
 	quad[3] = quad[1] * quad[1] - 4 * quad[0] * quad[2];
 	if (quad[3] < 0)
 		return (0);

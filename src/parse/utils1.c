@@ -47,6 +47,8 @@ int	parse_general(char *str, float *p, int i)
 		if (*p > 180 || *p < 0)
 			return (print_error("Invalid range for FOV"));
 	}
+	else if (i == 2)
+		*p = *p / 2;
 	else
 	{
 		if (*p < 0)

@@ -83,7 +83,7 @@ int	cy_parsing(char *line, t_rt *rt)
 		return (free_tab(tab), free(obj), 0);
 	if (!parse_vector(tab[2], &obj->fig.cy.ori))
 		return (free_tab(tab), free(obj), 0);
-	if (!parse_general(tab[3], &obj->fig.cy.d, 0))
+	if (!parse_general(tab[3], &obj->fig.cy.r, 2))
 		return (free_tab(tab), free(obj), 0);
 	if (!parse_general(tab[4], &obj->fig.cy.h, 0))
 		return (free_tab(tab), free(obj), 0);
