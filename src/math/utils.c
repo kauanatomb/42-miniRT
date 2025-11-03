@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matriz.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,27 +11,6 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
-
-float	bhaskara(float a, float b, float c)
-{
-	float	delta;
-	float	t0;
-	float	t1;
-
-	delta = b * b - 4 * a * c;
-	if (delta < 0)
-		return (-1);
-	t0 = (-b - sqrt(delta)) / (2 * a);
-	t1 = (-b + sqrt(delta)) / (2 * a);
-	if (t0 < 0)
-		t0 = t1;
-	if (t0 < 0)
-		return (-1);
-	else if (t1 >= 0 && t1 < t0)
-		return (t1);
-	else
-		return (t0);
-}
 
 float	dot_product(t_v3d a, t_v3d b)
 {

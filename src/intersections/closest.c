@@ -56,18 +56,18 @@ void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 
 void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 {
-	t_v3d		name;
+	t_v3d		oc;
 	t_cylinder	*cy;
 
 	tmp->dist = INFINITY;
 	cy = &obj->fig.cy;
-	name.x = cam_ray->coord.x - cy->coord.x;
-	name.y = cam_ray->coord.y - cy->coord.y;
-	name.z = cam_ray->coord.z - cy->coord.z;
-	// if (!quad_cy(cam_ray, tmp, cy, name))
-	// 	return ;
+	oc.x = cam_ray->coord.x - cy->coord.x;
+	oc.y = cam_ray->coord.y - cy->coord.y;
+	oc.z = cam_ray->coord.z - cy->coord.z;
+	if (!quad_cy(cam_ray, tmp, cy, oc))
+		return ;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, tmp->dist));
-	// tmp->normal = cy_normal(tmp->point, cy);
+	tmp->normal = cy_normal(tmp->point, cy);
 }
 
 int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
