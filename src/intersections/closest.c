@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
+# include <stdio.h>
 
 void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 {
@@ -30,8 +31,8 @@ void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	tmp->dist = t;
 	tmp->obj = obj;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t));
-	tmp->point = add(tmp->point, sc_mult(tmp->normal, 1e-4));
 	tmp->normal = plane->ori;
+	tmp->point = add(tmp->point, sc_mult(tmp->normal, 1e-4));
 }
 
 void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
@@ -66,6 +67,7 @@ void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	oc.z = cam_ray->coord.z - cy->coord.z;
 	if (!quad_cy(cam_ray, tmp, cy, oc))
 		return ;
+	printf("test3: %f\n", tmp->dist);
 	tmp->obj = obj;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, tmp->dist));
 	tmp->normal = cy_normal(tmp->point, cy);
@@ -99,9 +101,6 @@ int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 		curr_obj = curr_obj->next;
 	}
 	if (hit)
-	{
 		cam_ray->inter = closest;
-    	printf("Hit obj %p type %d at dist %f\n", closest.obj, closest.obj->type, closest.dist);
-	}
 	return (hit);
 }

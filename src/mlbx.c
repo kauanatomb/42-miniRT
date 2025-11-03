@@ -14,6 +14,7 @@
 
 int	display(t_rt *rt)
 {
+	init_camera(&rt->sc->cam);
 	if (!launch_cam_rays(rt))
 		return (0);
 	mlx_put_image_to_window(rt->mlbx->mlx, rt->mlbx->mlx_win,

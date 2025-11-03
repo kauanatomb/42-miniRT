@@ -34,6 +34,9 @@ typedef struct s_camera
 	float	fov;
 	t_v3d	coord;
 	t_v3d	ori;
+	t_v3d	right;
+	t_v3d	up;
+	t_v3d	forward;
 }	t_camera;
 
 typedef struct s_light
