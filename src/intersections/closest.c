@@ -66,6 +66,7 @@ void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	oc.z = cam_ray->coord.z - cy->coord.z;
 	if (!quad_cy(cam_ray, tmp, cy, oc))
 		return ;
+	tmp->obj = obj;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, tmp->dist));
 	tmp->normal = cy_normal(tmp->point, cy);
 }
@@ -75,8 +76,11 @@ int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 	t_inter		closest;
 	t_inter		tmp;
 	t_objects	*curr_obj;
+	int			hit;
 
+	hit = 0;
 	tmp.dist = INFINITY;
+	tmp.obj = NULL;
 	closest.dist = INFINITY;
 	curr_obj = rt->sc->obj;
 	while (curr_obj)
@@ -88,9 +92,16 @@ int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 		else if (curr_obj->type == CYLINDER)
 			cy_inter(cam_ray, curr_obj, &tmp);
 		if (tmp.dist < closest.dist)
+		{
 			closest = tmp;
+			hit = 1;
+		}
 		curr_obj = curr_obj->next;
 	}
-	cam_ray->inter = closest;
-	return (1);
+	if (hit)
+	{
+		cam_ray->inter = closest;
+    	printf("Hit obj %p type %d at dist %f\n", closest.obj, closest.obj->type, closest.dist);
+	}
+	return (hit);
 }

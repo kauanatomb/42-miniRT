@@ -20,6 +20,9 @@
 # include <math.h>
 # include "structures.h"
 
+# define WIN_W 1200
+# define WIN_H 800
+
 int		print_error(char *error_message);
 void	clean_rt_scene(t_rt *rt);
 int		file_parsing(char *file, t_rt *rt);
@@ -50,5 +53,8 @@ t_v3d	normalize(t_v3d v);
 float	bhaskara(float a, float b, float c);
 t_v3d	cy_normal(t_v3d hit_point, t_cylinder *cy);
 int		quad_cy(t_cam_ray *ray, t_inter *tmp, t_cylinder *cy, t_v3d oc);
+t_color	get_color(t_inter inter);
+int		rgb_to_int(t_color rgb);
+void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 
 #endif

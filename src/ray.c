@@ -20,8 +20,8 @@ t_v3d	normalize(t_v3d v)
 	if (len == 0)
 		return (v);
 	v.x /= len;
-	v.x /= len;
-	v.x /= len;
+	v.y /= len;
+	v.z /= len;
 	return (v);
 }
 
@@ -33,8 +33,8 @@ t_v3d	make_v_dir(t_rt *rt, float x, float y)
 	t_v3d	v_dir;
 	int		max_proportion;
 
-	right = x + 0.5 * rt->win_w * 0.5;
-	up = y + 0.5 * rt->win_h * 0.5;
+	right = x + 0.5 - rt->win_w * 0.5;
+	up = y + 0.5 - rt->win_h * 0.5;
 	if (rt->win_w > rt->win_h)
 		max_proportion = rt->win_w;
 	else
@@ -51,6 +51,7 @@ int	launch_cam_rays(t_rt *rt)
 	float		x;
 	float		y;
 	t_cam_ray	cam_ray;
+	t_color		final_color;
 
 	y = -1;
 	while (++y < rt->win_h)
@@ -61,7 +62,10 @@ int	launch_cam_rays(t_rt *rt)
 			cam_ray.coord = rt->sc->cam.coord;
 			cam_ray.v_dir = make_v_dir(rt, x, y);
 			if (!inter_closest(rt, &cam_ray))
-				return (0);
+				final_color = (t_color){255, 255, 255};
+			else
+				final_color = get_color(cam_ray.inter);
+			my_mlx_pixel_put(rt->mlbx->img, x, y, rgb_to_int(final_color));
 		}
 	}
 	return (1);

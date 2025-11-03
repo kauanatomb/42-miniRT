@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,22 +12,26 @@
 
 #include "miniRT.h"
 
-int	main(int argc, char **argv)
+t_color	get_color(t_inter inter)
 {
-	t_rt	*rt;
+	t_color	background;
 
-	if (argc != 2)
-	{
-		print_error("Args needed: ./miniRT [scene_file]");
-		return (1);
-	}
-	rt = ft_calloc(sizeof(t_rt), 1);
-	if (!rt)
-		return (print_error("Malloc error rt"), 1);
-	rt->win_w = WIN_W;
-	rt->win_h = WIN_H;
-	if (!file_parsing(argv[1], rt))
-		return (clean_rt_scene(rt), 1);
-	make_window(rt);
-	return (0);
+	background.r = 0;
+	background.g = 0;
+	background.b = 0;
+
+	if (!inter.obj)
+		return (background);
+	else if (inter.obj->type == PLANE)
+		inter.c = inter.obj->fig.pl.color;
+	else if (inter.obj->type == SPHERE)
+		inter.c = inter.obj->fig.sp.color;
+	else if (inter.obj->type == CYLINDER)
+		inter.c = inter.obj->fig.cy.color;
+	return (inter.c);
+}
+
+int	rgb_to_int(t_color rgb)
+{
+	return (((rgb.r & 0xff) << 16) | ((rgb.g & 0xff) << 8) | (rgb.b & 0xff));
 }

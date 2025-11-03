@@ -59,3 +59,14 @@ int	make_window(t_rt *rt)
 	mlx_loop(mlbx->mlx);
 	return (1);
 }
+void	my_mlx_pixel_put(t_img img, int x, int y, int color)
+{
+	char	*dst;
+
+	if (x >= 0 && x < WIN_W && y >= 0 && y < WIN_H)
+	{
+		dst = img.addr + (y * img.size_line + \
+		x * (img.bits_p_pixel / 8));
+		*(unsigned int *)dst = color;
+	}
+}
