@@ -50,7 +50,7 @@ int	make_window(t_rt *rt)
 	rt->mlbx->mlx = mlx_init();
 	rt->mlbx->mlx_win = mlx_new_window(mlbx->mlx, rt->win_w,
 			rt->win_h, "MiniRT");
-	rt->mlbx->img.img = mlx_new_image(mlbx->mlx, rt->win_h, rt->win_h);
+	rt->mlbx->img.img = mlx_new_image(mlbx->mlx, rt->win_w, rt->win_h);
 	rt->mlbx->img.addr = mlx_get_data_addr(mlbx->img.img,
 			&mlbx->img.bits_p_pixel, &mlbx->img.size_line, &mlbx->img.endian);
 	if (!display(rt))
