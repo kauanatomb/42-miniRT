@@ -60,6 +60,7 @@ int	make_window(t_rt *rt)
 	mlx_loop(mlbx->mlx);
 	return (1);
 }
+
 void	my_mlx_pixel_put(t_img img, int x, int y, int color)
 {
 	char	*dst;

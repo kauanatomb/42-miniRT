@@ -40,6 +40,7 @@ t_v3d	sub(t_v3d a, t_v3d b)
 	a.z -= b.z;
 	return (a);
 }
+
 t_v3d	cross(t_v3d a, t_v3d b)
 {
 	t_v3d	c;
