@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "miniRT.h"
-# include <stdio.h>
 
 void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 {
