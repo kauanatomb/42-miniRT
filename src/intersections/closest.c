@@ -23,7 +23,7 @@ void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	plane = &obj->fig.pl;
 	plane->ori = normalize(plane->ori);
 	denom = dot_product(plane->ori, cam_ray->v_dir);
-	if (fabs(denom) < 1e-6)
+	if (fabs(denom) <= 0)
 		return ;// demon is paralel (without inter)
 	t = dot_product(sub(plane->coord, cam_ray->coord), plane->ori) / denom;
 	if (t < 1e-4)
@@ -43,7 +43,7 @@ void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 
 	tmp->dist = INFINITY;
 	sphere = &obj->fig.sp;
-	oc = sub(cam_ray->coord, sphere->coord);
+	oc = sub(sphere->coord, cam_ray->coord);
 	t = bhaskara(dot_product(cam_ray->v_dir, cam_ray->v_dir), 2.0 * \
 	dot_product(oc, cam_ray->v_dir), dot_product(oc, oc) \
 	- sphere->r * sphere->r);
