@@ -14,7 +14,7 @@
 
 float	dot_product(t_v3d a, t_v3d b)
 {
-	return (a.x * b.x + a.y * b.y + a.z + b.z);
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
 t_v3d	add(t_v3d a, t_v3d b)
