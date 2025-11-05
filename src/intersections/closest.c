@@ -42,7 +42,7 @@ void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 
 	tmp->dist = INFINITY;
 	sphere = &obj->fig.sp;
-	oc = sub(sphere->coord, cam_ray->coord);
+	oc = sub(cam_ray->coord, sphere->coord);
 	t = bhaskara(dot_product(cam_ray->v_dir, cam_ray->v_dir), 2.0 * \
 	dot_product(oc, cam_ray->v_dir), dot_product(oc, oc) \
 	- sphere->r * sphere->r);
