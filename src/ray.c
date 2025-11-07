@@ -52,8 +52,20 @@ void	init_camera(t_camera *cam)
 
 	up_guide = (t_v3d){0, 1, 0};
 	cam->forward = normalize(cam->ori);
+	if (fabs(cam->forward.x) == 0 && fabs(cam->forward.z) == 0)
+		up_guide = (t_v3d){0, 0, 1};
 	cam->right = normalize(cross(up_guide, cam->forward));
 	cam->up = cross(cam->forward, cam->right);
+}
+
+t_v3d	rotate_y(t_v3d v, float angle)
+{
+	t_v3d	new;
+
+	new.x = v.x * cos(angle) + v.z * sin(angle);
+	new.y = v.y;
+	new.z = -v.x * sin(angle) + v.z * cos(angle);
+	return (normalize(new));
 }
 
 int	launch_cam_rays(t_rt *rt)

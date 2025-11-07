@@ -22,6 +22,15 @@
 
 # define WIN_W 1200
 # define WIN_H 800
+# define ESC 65307
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define Q 113
+# define E 101
+# define LEFT_ARROW 65361
+# define RIGHT_ARROW 65363
 
 int		print_error(char *error_message);
 void	clean_rt_scene(t_rt *rt);
@@ -58,5 +67,6 @@ int		quad_cy(t_cam_ray *ray, t_inter *tmp, t_cylinder *cy, t_v3d oc);
 t_color	get_color(t_inter inter);
 int		rgb_to_int(t_color rgb);
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
+t_v3d	rotate_y(t_v3d v, float angle);
 
 #endif
