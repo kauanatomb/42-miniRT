@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mlbx.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/10/13 13:50:49 by ktombola         ###   ########.fr       */
+/*   Updated: 2025/11/07 14:26:12 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	key_function(const int keycode, t_rt *rt)
 	t_camera	*cam;
 
 	cam = &rt->sc->cam;
-	if (keycode == 65307)
+	if (keycode == ESC)
 		destroy(rt);
 	else if (keycode == W)
 		cam->coord = add(cam->coord, sc_mult(cam->forward, 5));
