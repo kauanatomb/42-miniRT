@@ -25,24 +25,23 @@ t_v3d	normalize(t_v3d v)
 	return (v);
 }
 
-t_v3d make_v_dir(t_rt *rt, float x, float y)
+t_v3d	make_v_dir(t_rt *rt, float x, float y)
 {
 	t_camera	*cam;
 	t_v3d		ray_dir;
-	float 		aspect_ratio;
-	float 		fov_rad;
-	float 		px;
+	float		fov_rad;
+	float		px;
 	float		py;
 
 	cam = &rt->sc->cam;
-	aspect_ratio = (float)rt->win_w / (float)rt->win_h;
 	fov_rad = cam->fov * M_PI / 180.0;
-	px = (2.0 * (x + 0.5) / rt->win_w - 1.0) * tan(fov_rad / 2.0) * aspect_ratio;
+	px = (2.0 * (x + 0.5) / rt->win_w - 1.0) * \
+	tan(fov_rad / 2.0) * ((float)rt->win_w / (float)rt->win_h);
 	py = (1.0 - 2.0 * (y + 0.5) / rt->win_h) * tan(fov_rad / 2.0);
 	ray_dir = add(
-		add(sc_mult(cam->right, px), sc_mult(cam->up, py)),
-		cam->forward
-	);
+			add(sc_mult(cam->right, px), sc_mult(cam->up, py)),
+			cam->forward
+			);
 	return (normalize(ray_dir));
 }
 

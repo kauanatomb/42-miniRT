@@ -19,7 +19,6 @@ t_color	get_color(t_inter inter)
 	background.r = 0;
 	background.g = 0;
 	background.b = 0;
-
 	if (!inter.obj)
 		return (background);
 	else if (inter.obj->type == PLANE)
