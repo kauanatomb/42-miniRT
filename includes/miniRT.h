@@ -68,5 +68,6 @@ t_color	get_color(t_inter inter);
 int		rgb_to_int(t_color rgb);
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 t_v3d	rotate_y(t_v3d v, float angle);
+int	    cap_cy(t_cam_ray *ray, t_cylinder *cy, t_inter *tmp);
 
 #endif

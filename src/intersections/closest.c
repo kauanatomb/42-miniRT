@@ -43,9 +43,9 @@ void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	tmp->dist = INFINITY;
 	sphere = &obj->fig.sp;
 	oc = sub(cam_ray->coord, sphere->coord);
-	t = bhaskara(dot_product(cam_ray->v_dir, cam_ray->v_dir), 2.0 * \
-	dot_product(oc, cam_ray->v_dir), dot_product(oc, oc) \
-	- sphere->r * sphere->r);
+	t = bhaskara(dot_product(cam_ray->v_dir, cam_ray->v_dir), 2.0
+			* dot_product(oc, cam_ray->v_dir), dot_product(oc, oc)
+			- sphere->r * sphere->r);
 	if (t < 0)
 		return ;
 	tmp->obj = obj;
@@ -66,6 +66,7 @@ void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	oc.z = cam_ray->coord.z - cy->coord.z;
 	if (!quad_cy(cam_ray, tmp, cy, oc))
 		return ;
+	cap_cy(cam_ray, cy, tmp);
 	tmp->obj = obj;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, tmp->dist));
 	tmp->normal = cy_normal(tmp->point, cy);
