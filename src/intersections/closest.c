@@ -72,34 +72,35 @@ void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	tmp->normal = cy_normal(tmp->point, cy);
 }
 
+static void	inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp)
+{
+	if (obj->type == PLANE)
+		plane_inter(ray, obj, tmp);
+	else if (obj->type == SPHERE)
+		sphere_inter(ray, obj, tmp);
+	else if (obj->type == CYLINDER)
+		cy_inter(ray, obj, tmp);
+}
+
 int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 {
 	t_inter		closest;
 	t_inter		tmp;
 	t_objects	*curr_obj;
-	int			hit;
 
-	hit = 0;
 	tmp.dist = INFINITY;
 	tmp.obj = NULL;
 	closest.dist = INFINITY;
 	curr_obj = rt->sc->obj;
 	while (curr_obj)
 	{
-		if (curr_obj->type == PLANE)
-			plane_inter(cam_ray, curr_obj, &tmp);
-		else if (curr_obj->type == SPHERE)
-			sphere_inter(cam_ray, curr_obj, &tmp);
-		else if (curr_obj->type == CYLINDER)
-			cy_inter(cam_ray, curr_obj, &tmp);
+		inter_object(cam_ray, curr_obj, &tmp);
 		if (tmp.dist < closest.dist)
-		{
 			closest = tmp;
-			hit = 1;
-		}
 		curr_obj = curr_obj->next;
 	}
-	if (hit)
-		cam_ray->inter = closest;
-	return (hit);
+	if (!closest.obj)
+		return (0);
+	cam_ray->inter = closest;
+	return (1);
 }
