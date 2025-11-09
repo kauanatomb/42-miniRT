@@ -71,12 +71,12 @@ int	quad_cy(t_cam_ray *ray, t_inter *tmp, t_cylinder *cy, t_v3d oc)
 	float	dist[2];
 
 	tmp->dist = INFINITY;
-	quad[0] = dot_product(ray->v_dir, ray->v_dir) \
-	- pow(dot_product(ray->v_dir, cy->ori), 2);
-	quad[1] = 2 * (dot_product(ray->v_dir, oc) - \
-	(dot_product(ray->v_dir, cy->ori) * dot_product(oc, cy->ori)));
-	quad[2] = dot_product(oc, oc) - \
-	pow(dot_product(oc, cy->ori), 2) - pow(cy->r, 2);
+	quad[0] = dot_product(ray->v_dir, ray->v_dir)
+		- pow(dot_product(ray->v_dir, cy->ori), 2);
+	quad[1] = 2 * (dot_product(ray->v_dir, oc)
+			- (dot_product(ray->v_dir, cy->ori) * dot_product(oc, cy->ori)));
+	quad[2] = dot_product(oc, oc)
+		- pow(dot_product(oc, cy->ori), 2) - pow(cy->r, 2);
 	quad[3] = quad[1] * quad[1] - 4 * quad[0] * quad[2];
 	if (quad[3] < 0)
 		return (0);
@@ -86,8 +86,8 @@ int	quad_cy(t_cam_ray *ray, t_inter *tmp, t_cylinder *cy, t_v3d oc)
 		dist[0] = dist[1];
 	if (!is_inter_valid(ray, cy, dist[0], cy->h))
 		return (0);
-	if (dist[1] >= 0 && dist[1] < dist[0] && \
-	is_inter_valid(ray, cy, dist[1], cy->h))
+	if (dist[1] >= 0 && dist[1] < dist[0]
+		&& is_inter_valid(ray, cy, dist[1], cy->h))
 		tmp->dist = dist[1];
 	else
 		tmp->dist = dist[0];

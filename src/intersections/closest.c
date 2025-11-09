@@ -23,10 +23,10 @@ void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	plane->ori = normalize(plane->ori);
 	denom = dot_product(plane->ori, cam_ray->v_dir);
 	if (fabs(denom) <= 0)
-		return ;// demon is paralel (without inter)
+		return ;
 	t = dot_product(sub(plane->coord, cam_ray->coord), plane->ori) / denom;
 	if (t < 1e-4)
-		return ;// behind the camera (withou inter)
+		return ;
 	tmp->dist = t;
 	tmp->obj = obj;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t));
