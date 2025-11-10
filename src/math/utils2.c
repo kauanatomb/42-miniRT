@@ -33,18 +33,29 @@ float	bhaskara(float a, float b, float c)
 		return (t0);
 }
 
-static int	is_inter_valid(t_cam_ray *ray, t_cylinder *cy, float t, float h)
+static int	pick_valid_t(t_cam_ray *ray, t_cylinder *cy, float t0, float t1)
 {
 	t_v3d	hit_point;
 	t_v3d	base_to_point;
 	float	h_on_axis;
 
-	hit_point = add(ray->coord, sc_mult(ray->v_dir, t));
-	base_to_point = sub(hit_point, cy->coord);
-	h_on_axis = dot_product(base_to_point, cy->ori);
-	if (h_on_axis >= 0 && h_on_axis <= h)
-		return (1);
-	return (0);
+	if (t0 > 1e-6)
+	{
+		hit_point = add(ray->coord, sc_mult(ray->v_dir, t0));
+		base_to_point = sub(hit_point, cy->coord);
+		h_on_axis = dot_product(base_to_point, cy->ori);
+		if (h_on_axis >= 0 && h_on_axis <= cy->h)
+			return (t0);
+	}
+	if (t1 > 1e-6)
+	{
+		hit_point = add(ray->coord, sc_mult(ray->v_dir, t1));
+		base_to_point = sub(hit_point, cy->coord);
+		h_on_axis = dot_product(base_to_point, cy->ori);
+		if (h_on_axis >= 0 && h_on_axis <= cy->h)
+			return (t1);
+	}
+	return (-1);
 }
 
 t_v3d	cy_normal(t_v3d hit_point, t_cylinder *cy)
@@ -65,12 +76,14 @@ t_v3d	cy_normal(t_v3d hit_point, t_cylinder *cy)
 	return (normal);
 }
 
-int	quad_cy(t_cam_ray *ray, t_inter *tmp, t_cylinder *cy, t_v3d oc)
+float	cy_inter_body(t_cam_ray *ray, t_cylinder *cy, t_v3d *normal)
 {
 	float	quad[4];
 	float	dist[2];
+	t_v3d	oc;
+	float	t;
 
-	tmp->dist = INFINITY;
+	oc = sub(ray->coord, cy->coord);
 	quad[0] = dot_product(ray->v_dir, ray->v_dir)
 		- pow(dot_product(ray->v_dir, cy->ori), 2);
 	quad[1] = 2 * (dot_product(ray->v_dir, oc)
@@ -79,17 +92,42 @@ int	quad_cy(t_cam_ray *ray, t_inter *tmp, t_cylinder *cy, t_v3d oc)
 		- pow(dot_product(oc, cy->ori), 2) - pow(cy->r, 2);
 	quad[3] = quad[1] * quad[1] - 4 * quad[0] * quad[2];
 	if (quad[3] < 0)
-		return (0);
+		return (-1);
 	dist[0] = (-quad[1] - sqrt(quad[3])) / (2 * quad[0]);
 	dist[1] = (-quad[1] + sqrt(quad[3])) / (2 * quad[0]);
-	if (!is_inter_valid(ray, cy, dist[0], cy->h))
-		dist[0] = dist[1];
-	if (!is_inter_valid(ray, cy, dist[0], cy->h))
-		return (0);
-	if (dist[1] >= 0 && dist[1] < dist[0]
-		&& is_inter_valid(ray, cy, dist[1], cy->h))
-		tmp->dist = dist[1];
+	t = pick_valid_t(ray, cy, dist[0], dist[1]);
+	if (t < 0)
+		return (-1);
+	if (normal)
+		*normal = cy_normal(add(ray->coord, sc_mult(ray->v_dir, t)), cy);
+	return (t);
+}
+
+float	cy_inter_cap(t_cam_ray *ray, t_cylinder *cy, bool top, t_v3d *normal)
+{
+	t_v3d	center;
+	float	denom;
+	float	t;
+	t_v3d	hit;
+	float	dist2;
+
+	if (top)
+		center = add(cy->coord, sc_mult(cy->ori, cy->h));
 	else
-		tmp->dist = dist[0];
-	return (1);
+		center = cy->coord;
+	denom = dot_product(ray->v_dir, cy->ori);
+	if (fabs(denom) < 1e-6)
+		return (-1);
+	t = dot_product(sub(center, ray->coord), cy->ori) / denom;
+	if (t <= 1e-6)
+		return (-1);
+	hit = add(ray->coord, sc_mult(ray->v_dir, t));
+	dist2 = dot_product(sub(hit, center), sub(hit, center));
+	if (dist2 > cy->r * cy->r)
+		return (-1);
+	if (normal && top)
+		*normal = cy->ori;
+	else if (normal)
+		*normal = sc_mult(cy->ori, -1);
+	return (t);
 }

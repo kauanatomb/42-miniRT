@@ -56,20 +56,29 @@ void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 
 void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 {
-	t_v3d		oc;
 	t_cylinder	*cy;
+	t_v3d		n_best;
+	float		t_best;
+	float		t;
 
-	tmp->dist = INFINITY;
+	t_best = INFINITY;
 	cy = &obj->fig.cy;
-	oc.x = cam_ray->coord.x - cy->coord.x;
-	oc.y = cam_ray->coord.y - cy->coord.y;
-	oc.z = cam_ray->coord.z - cy->coord.z;
-	if (!quad_cy(cam_ray, tmp, cy, oc))
-		return ;
-	cap_cy(cam_ray, cy, tmp);
-	tmp->obj = obj;
-	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, tmp->dist));
-	tmp->normal = cy_normal(tmp->point, cy);
+	t = cy_inter_body(cam_ray, cy, &n_best);
+	if (t > 0 && t < t_best)
+		t_best = t;
+	t = cy_inter_cap(cam_ray, cy, true, &n_best);
+	if (t > 0 && t < t_best)
+		t_best = t;
+	t = cy_inter_cap(cam_ray, cy, false, &n_best);
+	if (t > 0 && t < t_best)
+		t_best = t;
+	if (t_best < INFINITY)
+	{
+		tmp->dist = t_best;
+		tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t_best));
+		tmp->normal = n_best;
+		tmp->obj = obj;
+	}
 }
 
 static void	inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp)
@@ -91,6 +100,7 @@ int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
 	tmp.dist = INFINITY;
 	tmp.obj = NULL;
 	closest.dist = INFINITY;
+	closest.obj = NULL;
 	curr_obj = rt->sc->obj;
 	while (curr_obj)
 	{

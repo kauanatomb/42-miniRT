@@ -63,11 +63,11 @@ t_v3d	sc_mult(t_v3d a, float scalar);
 t_v3d	normalize(t_v3d v);
 float	bhaskara(float a, float b, float c);
 t_v3d	cy_normal(t_v3d hit_point, t_cylinder *cy);
-int		quad_cy(t_cam_ray *ray, t_inter *tmp, t_cylinder *cy, t_v3d oc);
+float	cy_inter_body(t_cam_ray *ray, t_cylinder *cy, t_v3d *normal);
 t_color	get_color(t_inter inter);
 int		rgb_to_int(t_color rgb);
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 t_v3d	rotate_y(t_v3d v, float angle);
-int	    cap_cy(t_cam_ray *ray, t_cylinder *cy, t_inter *tmp);
+float	cy_inter_cap(t_cam_ray *ray, t_cylinder *cy, bool top, t_v3d *normal);
 
 #endif
