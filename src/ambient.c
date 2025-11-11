@@ -12,61 +12,22 @@
 
 #include "miniRT.h"
 
-static int	clmap8(int one_color)
+static t_color	ambient_light(t_color obj, t_color ambient_light, float ratio)
 {
-	if (one_color < 0)
-		return (0);
-	if (one_color > 255)
-		return (255);
-	return (one_color);
+	t_color	result;
+
+	result.r = obj.r * ratio * (ambient_light.r / 255.0);
+	result.g = obj.g * ratio * (ambient_light.g / 255.0);
+	result.b = obj.b * ratio * (ambient_light.b / 255.0);
+	return (result);
 }
 
-static t_color	color_scale(t_color c, float s)
+t_color	compute_light(t_rt *rt, t_inter inter)
 {
-	t_color	out;
+	t_ambient	amb;
+	t_color		color;
 
-	out.r = clmap8((int)(c.r * s));
-	out.g = clmap8((int)(c.g * s));
-	out.b = clmap8((int)(c.b * s));
-	return (out);
-}
-
-static t_color	color_mul_per_channel(t_color a, t_color b)
-{
-	t_color	out;
-
-	out.r = clmap8((a.r * b.r) / 255);
-	out.g = clmap8((a.g * b.g) / 255);
-	out.b = clmap8((a.b * b.b) / 255);
-	return (out);
-}
-
-static t_color	get_obj_color(t_inter inter)
-{
-	t_color	backgroud;
-
-	backgroud.r = 0;
-	backgroud.g = 0;
-	backgroud.b = 0;
-	if (!inter.obj)
-		return (backgroud);
-	if (inter.obj->type == PLANE)
-		return (inter.obj->fig.pl.color);
-	else if (inter.obj->type == SPHERE)
-		return (inter.obj->fig.sp.color);
-	else if (inter.obj->type == CYLINDER)
-		return (inter.obj->fig.cy.color);
-	return (backgroud);
-}
-
-t_color	shade_ambient(t_rt *rt, t_inter inter)
-{
-	t_color	obj;
-	t_color	mixed;
-
-	if (!inter.obj)
-		return ((t_color){0, 0, 0});
-	obj = get_obj_color(inter);
-	mixed = color_mul_per_channel(obj, rt->sc->amb.color);
-	return (color_scale(mixed, rt->sc->amb.ratio));
+	amb = rt->sc->amb;
+	color = ambient_light(get_obj_color(inter), amb.color, amb.ratio);
+	return (color);
 }
