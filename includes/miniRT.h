@@ -72,6 +72,6 @@ t_v3d	rotate_y(t_v3d v, float angle);
 float	cy_inter_cap(t_cam_ray *ray, t_cylinder *cy, bool top, t_v3d *normal);
 t_color	compute_light(t_rt *rt, t_cam_ray *ray);
 t_color	color_mult(t_color color, float scalar);
-int	    clamp(int n, int min, int max);
+int	clamp(int n, int min, int max);
 
 #endif
