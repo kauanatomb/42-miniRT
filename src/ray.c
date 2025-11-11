@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/10/13 13:50:49 by ktombola         ###   ########.fr       */
+/*   Updated: 2025/11/11 14:45:15 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ t_v3d	make_v_dir(t_rt *rt, float x, float y)
 
 	cam = &rt->sc->cam;
 	fov_rad = cam->fov * M_PI / 180.0;
-	px = (2.0 * (x + 0.5) / rt->win_w - 1.0)
-		* tan(fov_rad / 2.0) * ((float)rt->win_w / (float)rt->win_h);
+	px = (2.0 * (x + 0.5) / rt->win_w - 1.0) * \
+	tan(fov_rad / 2.0) * ((float)rt->win_w / (float)rt->win_h);
 	py = (1.0 - 2.0 * (y + 0.5) / rt->win_h) * tan(fov_rad / 2.0);
 	ray_dir = add(
 			add(sc_mult(cam->right, px), sc_mult(cam->up, py)),
@@ -85,7 +85,7 @@ int	launch_cam_rays(t_rt *rt)
 			if (!inter_closest(rt, &cam_ray))
 				final_color = (t_color){0, 0, 0};
 			else
-				final_color = get_color(cam_ray.inter);
+				final_color = compute_light(rt, cam_ray.inter);
 			my_mlx_pixel_put(rt->mlbx->img, x, y, rgb_to_int(final_color));
 		}
 	}

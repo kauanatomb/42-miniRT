@@ -12,7 +12,16 @@
 
 #include "miniRT.h"
 
-t_color	get_color(t_inter inter)
+static int	clamp_color(int one_color)
+{
+	if (one_color < 0)
+		return (0);
+	if (one_color > 255)
+		return (255);
+	return (one_color);
+}
+
+t_color	get_obj_color(t_inter inter)
 {
 	t_color	background;
 
@@ -30,7 +39,14 @@ t_color	get_color(t_inter inter)
 	return (inter.c);
 }
 
-int	rgb_to_int(t_color rgb)
+int	rgb_to_int(t_color c)
 {
-	return (((rgb.r & 0xff) << 16) | ((rgb.g & 0xff) << 8) | (rgb.b & 0xff));
+	int	r;
+	int	g;
+	int	b;
+
+	r = clamp_color(c.r);
+	g = clamp_color(c.g);
+	b = clamp_color(c.b);
+	return ((r << 16) | (g << 8) | b);
 }
