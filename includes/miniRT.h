@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/10/13 13:50:49 by ktombola         ###   ########.fr       */
+/*   Updated: 2025/11/11 14:43:13 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ int		rgb_to_int(t_color rgb);
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 t_v3d	rotate_y(t_v3d v, float angle);
 float	cy_inter_cap(t_cam_ray *ray, t_cylinder *cy, bool top, t_v3d *normal);
+t_color shade_ambient(t_rt *rt, t_inter inter);
 
 #endif
