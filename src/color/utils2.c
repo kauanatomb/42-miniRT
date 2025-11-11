@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
+/*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,25 +12,16 @@
 
 #include "miniRT.h"
 
-t_color	get_color(t_inter inter)
+t_color	color_mult(t_color color, float scalar)
 {
-	t_color	background;
-
-	background.r = 0;
-	background.g = 0;
-	background.b = 0;
-	if (!inter.obj)
-		return (background);
-	else if (inter.obj->type == PLANE)
-		inter.c = inter.obj->fig.pl.color;
-	else if (inter.obj->type == SPHERE)
-		inter.c = inter.obj->fig.sp.color;
-	else if (inter.obj->type == CYLINDER)
-		inter.c = inter.obj->fig.cy.color;
-	return (inter.c);
+	return ((t_color){color.r * scalar, color.g * scalar, color.b * scalar});
 }
 
-int	rgb_to_int(t_color rgb)
+int	clamp(int n, int min, int max)
 {
-	return (((rgb.r & 0xff) << 16) | ((rgb.g & 0xff) << 8) | (rgb.b & 0xff));
+	if (n > max)
+		return (max);
+	else if (n < min)
+		return (min);
+	return (n);
 }

@@ -85,7 +85,7 @@ int	launch_cam_rays(t_rt *rt)
 			if (!inter_closest(rt, &cam_ray))
 				final_color = (t_color){0, 0, 0};
 			else
-				final_color = get_color(cam_ray.inter);
+				final_color = compute_light(rt, &cam_ray);
 			my_mlx_pixel_put(rt->mlbx->img, x, y, rgb_to_int(final_color));
 		}
 	}
