@@ -22,6 +22,7 @@
 
 # define WIN_W 1200
 # define WIN_H 800
+# define EPSILON 1e-4
 # define ESC 65307
 # define W 119
 # define A 97

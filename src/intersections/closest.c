@@ -25,13 +25,13 @@ void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	if (fabs(denom) <= 0)
 		return ;
 	t = dot_product(sub(plane->coord, cam_ray->coord), plane->ori) / denom;
-	if (t < 1e-4)
+	if (t < EPSILON)
 		return ;
 	tmp->dist = t;
 	tmp->obj = obj;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t));
 	tmp->normal = plane->ori;
-	tmp->point = add(tmp->point, sc_mult(tmp->normal, 1e-4));
+	tmp->point = add(tmp->point, sc_mult(tmp->normal, EPSILON));
 }
 
 void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)

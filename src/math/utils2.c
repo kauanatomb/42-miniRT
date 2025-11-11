@@ -39,7 +39,7 @@ static int	pick_valid_t(t_cam_ray *ray, t_cylinder *cy, float t0, float t1)
 	t_v3d	base_to_point;
 	float	h_on_axis;
 
-	if (t0 > 1e-6)
+	if (t0 > EPSILON)
 	{
 		hit_point = add(ray->coord, sc_mult(ray->v_dir, t0));
 		base_to_point = sub(hit_point, cy->coord);
@@ -47,7 +47,7 @@ static int	pick_valid_t(t_cam_ray *ray, t_cylinder *cy, float t0, float t1)
 		if (h_on_axis >= 0 && h_on_axis <= cy->h)
 			return (t0);
 	}
-	if (t1 > 1e-6)
+	if (t1 > EPSILON)
 	{
 		hit_point = add(ray->coord, sc_mult(ray->v_dir, t1));
 		base_to_point = sub(hit_point, cy->coord);
@@ -116,10 +116,10 @@ float	cy_inter_cap(t_cam_ray *ray, t_cylinder *cy, bool top, t_v3d *normal)
 	else
 		center = cy->coord;
 	denom = dot_product(ray->v_dir, cy->ori);
-	if (fabs(denom) < 1e-6)
+	if (fabs(denom) < EPSILON)
 		return (-1);
 	t = dot_product(sub(center, ray->coord), cy->ori) / denom;
-	if (t <= 1e-6)
+	if (t <= EPSILON)
 		return (-1);
 	hit = add(ray->coord, sc_mult(ray->v_dir, t));
 	dist2 = dot_product(sub(hit, center), sub(hit, center));
