@@ -64,8 +64,8 @@ t_color ambient_light(t_color obj, t_color ambient_light, float ratio)
 // 	light = sc->light;
 // 	light_dir = sub(light.coord, inter.point);
 // 	light_distance = sqrt(dot_product(light_dir, light_dir));
-// 	ray.coord = add(inter.point, sc_mult(inter.normal, EPSILON));
-// 	ray.v_dir = normalize(light_dir);
+// 	ray_shadow.coord = add(inter.point, sc_mult(inter.normal, EPSILON));
+// 	ray_shadow.v_dir = normalize(light_dir);
 // 	return ()
 // }
 
