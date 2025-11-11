@@ -44,13 +44,13 @@ int	rgb_to_int(t_color c)
 
 t_color ambient_light(t_color obj, t_color ambient_light, float ratio)
 {
-    t_color result;
+	t_color result;
 
-    result.r = obj.r * ratio * (ambient_light.r / 255.0);
-    result.g = obj.g * ratio * (ambient_light.g / 255.0);
-    result.b = obj.b * ratio * (ambient_light.b / 255.0);
+	result.r = obj.r * ratio * (ambient_light.r / 255.0);
+	result.g = obj.g * ratio * (ambient_light.g / 255.0);
+	result.b = obj.b * ratio * (ambient_light.b / 255.0);
 
-    return result;
+	return result;
 }
 
 
