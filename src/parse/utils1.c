@@ -15,7 +15,6 @@
 int	parse_vector(char *str, t_v3d *ori)
 {
 	char	**tab;
-	float	len;
 
 	tab = ft_split(str, ',');
 	if (!tab)
@@ -27,13 +26,13 @@ int	parse_vector(char *str, t_v3d *ori)
 	ori->x = s_to_f(tab[0]);
 	ori->y = s_to_f(tab[1]);
 	ori->z = s_to_f(tab[2]);
+	free_tab(tab);
 	if (ori->x < -1 || ori->x > 1 || ori->y < -1 || ori->y > 1
 		|| ori->z < -1 || ori->z > 1)
-		return (free_tab(tab), print_error("Wrong orientation vector range"));
-	len = sqrt(ori->x * ori->x + ori->y * ori->y + ori->z * ori->z);
-	if (fabs(len - 1.0) > 1e-3)
-		return (free_tab(tab), print_error("Vector not normalized"));
-	free_tab(tab);
+		return (print_error("Orientation vector out of range [-1,1]"));
+	if (ori->x == 0 && ori->y == 0 && ori->z == 0)
+		return (print_error("Zero orientation vector is invalid"));
+	*ori = normalize(*ori);
 	return (1);
 }
 
