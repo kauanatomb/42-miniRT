@@ -34,7 +34,7 @@ int	is_shadowed(t_scene *sc, t_inter inter)
 	light_distance = sqrt(dot_product(light_dir, light_dir));
 	ray_shadow.coord = add(inter.point, sc_mult(inter.normal, EPSILON));
 	ray_shadow.v_dir = normalize(light_dir);
-	obj = sc->obj;
+	curr_obj = sc->obj;
 	tmp.dist = INFINITY;
 	tmp.obj = NULL;
 	while (curr_obj)
@@ -53,13 +53,20 @@ t_color	compute_light(t_rt *rt, t_inter inter)
 {
 	t_ambient	amb;
 	t_color		color;
+	t_light		light;
+	t_v3d		light_dir;
+	t_color		diffuse;
 
 	amb = rt->sc->amb;
 	color = ambient_light(get_obj_color(inter), amb.color, amb.ratio);
-	if (rt->sc->has_light)
+	if (rt->sc->has_light && !is_shadowed(rt->sc, inter))
 	{
-		if (!is_shadowed(rt->sc, inter))
-			// something here needs to add the color
+		light = rt->sc->light;
+		light_dir = normalize(sub(light.coord, inter.point));
+		diffuse = color_scale(color_mult(get_obj_color(inter), light.color),
+				light.ratio * fmax(0.0, dot_product(inter.normal, light_dir))
+				/ 255.0);
+		color = color_add(color, diffuse);
 	}
 	return (color);
 }

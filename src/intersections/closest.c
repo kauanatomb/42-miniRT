@@ -81,7 +81,7 @@ void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	}
 }
 
-static void	inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp)
+int	inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp)
 {
 	if (obj->type == PLANE)
 		plane_inter(ray, obj, tmp);
@@ -89,6 +89,7 @@ static void	inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp)
 		sphere_inter(ray, obj, tmp);
 	else if (obj->type == CYLINDER)
 		cy_inter(ray, obj, tmp);
+	return (0);
 }
 
 int	inter_closest(t_rt *rt, t_cam_ray *cam_ray)
