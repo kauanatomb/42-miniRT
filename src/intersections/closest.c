@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   closest.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/10/13 13:50:49 by ktombola         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:59:28 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 {
 	t_cylinder	*cy;
 	t_v3d		n_best;
+	t_v3d		n_tmp;
 	float		t_best;
 	float		t;
 
-	t_best = INFINITY;
+	tmp->dist = INFINITY;
+	tmp->obj = NULL;
 	cy = &obj->fig.cy;
-	t = cy_inter_body(cam_ray, cy, &n_best);
-	if (t > 0 && t < t_best)
-		t_best = t;
-	t = cy_inter_cap(cam_ray, cy, true, &n_best);
-	if (t > 0 && t < t_best)
-		t_best = t;
-	t = cy_inter_cap(cam_ray, cy, false, &n_best);
-	if (t > 0 && t < t_best)
-		t_best = t;
+	t_best = INFINITY;
+	t = cy_inter_body(cam_ray, cy, &n_tmp);
+	update_hit(t, &t_best, &n_best, &n_tmp);
+	t = cy_inter_cap(cam_ray, cy, true, &n_tmp);
+	update_hit(t, &t_best, &n_best, &n_tmp);
+	t = cy_inter_cap(cam_ray, cy, false, &n_tmp);
+	update_hit(t, &t_best, &n_best, &n_tmp);
 	if (t_best < INFINITY)
 	{
 		tmp->dist = t_best;
