@@ -6,7 +6,7 @@
 /*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/11/11 14:43:13 by falatrac         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:57:30 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,6 @@ t_color	color_mult(t_color c1, t_color c2);
 t_color	color_add(t_color c1, t_color c2);
 int		inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp);
 t_color	color_scale(t_color c, float k);
+void	update_hit(float t, float *t_best, t_v3d *n_best, t_v3d *n_tmp);
 
 #endif

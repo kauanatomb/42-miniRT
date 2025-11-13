@@ -1,0 +1,15 @@
+# All object files
+*.o
+
+# All static libraries
+*.a
+
+# MiniRT executable
+miniRT
+
+# MLX test binary
+mlx/test/mlx-test
+
+# Build folders (if ever used)
+obj/
+build/

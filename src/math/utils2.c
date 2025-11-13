@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/10/13 13:50:49 by ktombola         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:35:41 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ float	bhaskara(float a, float b, float c)
 		return (t0);
 }
 
-static int	pick_valid_t(t_cam_ray *ray, t_cylinder *cy, float t0, float t1)
+static float	pick_valid_t(t_cam_ray *ray, t_cylinder *cy, float t0, float t1)
 {
 	t_v3d	hit_point;
 	t_v3d	base_to_point;

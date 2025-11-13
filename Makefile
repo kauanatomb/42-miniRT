@@ -6,7 +6,7 @@
 #    By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 17:32:59 by ktombola          #+#    #+#              #
-#    Updated: 2025/11/11 14:48:31 by falatrac         ###   ########.fr        #
+#    Updated: 2025/11/13 14:26:34 by falatrac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME    := miniRT
 SRC     := src/main.c src/errors.c src/parse/parsing.c src/parse/scene.c \
 		src/parse/objects.c src/parse/utils.c src/parse/utils1.c  \
 		src/parse/conversions.c src/render/mlbx.c src/ray.c  \
-		src/intersections/closest.c src/math/utils.c src/math/utils2.c \
+		src/intersections/closest.c src/intersections/utils.c \
+		src/math/utils.c src/math/utils2.c \
 		src/render/color.c src/render/color_cal.c src/render/light.c \
 
 OBJ     := $(SRC:.c=.o)
