@@ -25,18 +25,36 @@ static int	check_filename(char *file)
 static char	*clean_line(char *line)
 {
 	int		i;
-	char	*tmp;
+	char	*trimmed;
 
 	i = -1;
-	tmp = line;
-	while (tmp && tmp[++i])
-		if (tmp[i] == '\t' || tmp[i] == '\n')
-			tmp[i] = ' ';
-	line = ft_strtrim(tmp, " ");
-	free(tmp);
-	if (!line)
+	while (line && line[++i])
+		if (line[i] == '\t' || line[i] == '\n')
+			line[i] = ' ';
+	trimmed = ft_strtrim(line, " ");
+	free(line);
+	if (!trimmed)
 		return (NULL);
-	return (line);
+	return (trimmed);
+}
+
+static int	parse_element(char *line, t_rt *rt)
+{
+	if (ft_strncmp("A ", line, 2) == 0)
+		return (ambiance_parsing(line, rt));
+	if (ft_strncmp("C ", line, 2) == 0)
+		return (camera_parsing(line, rt));
+	if (ft_strncmp("L ", line, 2) == 0)
+		return (light_parsing(line, rt));
+	if (ft_strncmp("sp ", line, 3) == 0)
+		return (sphere_parsing(line, rt));
+	if (ft_strncmp("pl ", line, 3) == 0)
+		return (plane_parsing(line, rt));
+	if (ft_strncmp("cy ", line, 3) == 0)
+		return (cy_parsing(line, rt));
+	if (line[0] == '#' || line[0] == '\0')
+		return (1);
+	return (print_error("Unknown element in scene"));
 }
 
 int	line_parsing(int fd, char *line, t_rt *rt)
@@ -45,18 +63,7 @@ int	line_parsing(int fd, char *line, t_rt *rt)
 
 	while (line)
 	{
-		if (ft_strncmp("A ", line, 2) == 0)
-			ret = ambiance_parsing(line, rt);
-		else if (ft_strncmp("C ", line, 2) == 0)
-			ret = camera_parsing(line, rt);
-		else if (ft_strncmp("L ", line, 2) == 0)
-			ret = light_parsing(line, rt);
-		else if (ft_strncmp("sp ", line, 3) == 0)
-			ret = sphere_parsing(line, rt);
-		else if (ft_strncmp("pl ", line, 3) == 0)
-			ret = plane_parsing(line, rt);
-		else if (ft_strncmp("cy ", line, 3) == 0)
-			ret = cy_parsing(line, rt);
+		ret = parse_element(line, rt);
 		free(line);
 		if (!ret)
 			return (get_next_line(-2), 0);

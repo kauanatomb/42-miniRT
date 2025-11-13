@@ -70,6 +70,10 @@ int		rgb_to_int(t_color rgb);
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 t_v3d	rotate_y(t_v3d v, float angle);
 float	cy_inter_cap(t_cam_ray *ray, t_cylinder *cy, bool top, t_v3d *normal);
-t_color compute_light(t_rt *rt, t_inter inter);
+t_color	compute_light(t_rt *rt, t_inter inter);
+t_color	color_mult(t_color c1, t_color c2);
+t_color	color_add(t_color c1, t_color c2);
+int		inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp);
+t_color	color_scale(t_color c, float k);
 
 #endif
