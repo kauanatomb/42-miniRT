@@ -20,8 +20,8 @@
 # include <math.h>
 # include "structures.h"
 
-# define WIN_W 1200
-# define WIN_H 800
+# define WIN_W 1910
+# define WIN_H 1000
 # define EPSILON 1e-4
 # define ESC 65307
 # define W 119

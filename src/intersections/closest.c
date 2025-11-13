@@ -12,49 +12,53 @@
 
 #include "miniRT.h"
 
-void	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
+int	plane_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 {
 	float	denom;
 	float	t;
 	t_plane	*plane;
 
 	tmp->dist = INFINITY;
+	tmp->obj = NULL;
 	plane = &obj->fig.pl;
 	plane->ori = normalize(plane->ori);
 	denom = dot_product(plane->ori, cam_ray->v_dir);
-	if (fabs(denom) <= 0)
-		return ;
+	if (fabs(denom) < EPSILON)
+		return (0);
 	t = dot_product(sub(plane->coord, cam_ray->coord), plane->ori) / denom;
 	if (t < EPSILON)
-		return ;
+		return (0);
 	tmp->dist = t;
 	tmp->obj = obj;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t));
 	tmp->normal = plane->ori;
 	tmp->point = add(tmp->point, sc_mult(tmp->normal, EPSILON));
+	return (1);
 }
 
-void	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
+int	sphere_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 {
 	float		t;
 	t_v3d		oc;
 	t_sphere	*sphere;
 
 	tmp->dist = INFINITY;
+	tmp->obj = NULL;
 	sphere = &obj->fig.sp;
 	oc = sub(cam_ray->coord, sphere->coord);
 	t = bhaskara(dot_product(cam_ray->v_dir, cam_ray->v_dir), 2.0
 			* dot_product(oc, cam_ray->v_dir), dot_product(oc, oc)
 			- sphere->r * sphere->r);
-	if (t < 0)
-		return ;
+	if (t < EPSILON)
+		return (0);
 	tmp->obj = obj;
 	tmp->dist = t;
 	tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t));
 	tmp->normal = normalize(sub(tmp->point, sphere->coord));
+	return (1);
 }
 
-void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
+int	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 {
 	t_cylinder	*cy;
 	t_v3d		n_best;
@@ -76,19 +80,21 @@ void	cy_inter(t_cam_ray *cam_ray, t_objects *obj, t_inter *tmp)
 	{
 		tmp->dist = t_best;
 		tmp->point = add(cam_ray->coord, sc_mult(cam_ray->v_dir, t_best));
-		tmp->normal = n_best;
+		tmp->normal = normalize(n_best);
 		tmp->obj = obj;
+		return (1);
 	}
+	return (0);
 }
 
 int	inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp)
 {
 	if (obj->type == PLANE)
-		plane_inter(ray, obj, tmp);
+		return (plane_inter(ray, obj, tmp));
 	else if (obj->type == SPHERE)
-		sphere_inter(ray, obj, tmp);
+		return (sphere_inter(ray, obj, tmp));
 	else if (obj->type == CYLINDER)
-		cy_inter(ray, obj, tmp);
+		return (cy_inter(ray, obj, tmp));
 	return (0);
 }
 
