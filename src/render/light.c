@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ambient.c                                          :+:      :+:    :+:   */
+/*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 13:53:49 by falatrac          #+#    #+#             */
-/*   Updated: 2025/11/11 14:42:31 by falatrac         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:25:38 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,57 @@ int	is_shadowed(t_scene *sc, t_inter inter)
 	return (0);
 }
 
+static t_color	compute_diffuse(t_inter inter, t_light light, t_v3d light_dir)
+{
+	t_color	obj_col;
+	float	dot_nl;
+	float	intensity;
+
+	obj_col = get_obj_color(inter);
+	dot_nl = fmax(0.0f, dot_product(inter.normal, light_dir));
+	intensity = light.ratio * dot_nl / 255.0f;
+	return (color_scale(color_mult(obj_col, light.color), intensity));
+}
+
+static t_color	compute_specular(t_rt *rt, t_light light,
+				t_inter inter, t_v3d light_dir)
+{
+	t_v3d	view_dir;
+	t_v3d	reflect_dir;
+	float	dot_nl;
+	float	dot_rv;
+	float	spec_factor;
+
+	view_dir = normalize(sub(rt->sc->cam.coord, inter.point));
+	dot_nl = dot_product(inter.normal, light_dir);
+	if (dot_nl <= 0.0f)
+		return ((t_color){0, 0, 0});
+	reflect_dir = sc_mult(inter.normal, 2.0f * dot_nl);
+	reflect_dir = sub(reflect_dir, light_dir);
+	reflect_dir = normalize(reflect_dir);
+	dot_rv = dot_product(reflect_dir, view_dir);
+	if (dot_rv <= 0.0f)
+		return ((t_color){0, 0, 0});
+	spec_factor = powf(dot_rv, SHININESS);
+	return (color_scale(light.color, light.ratio * spec_factor));
+}
+
 t_color	compute_light(t_rt *rt, t_inter inter)
 {
-	t_ambient	amb;
-	t_color		color;
-	t_light		light;
-	t_v3d		light_dir;
-	t_color		diffuse;
+	t_color	color;
+	t_v3d	light_dir;
+	t_color	diffuse;
+	t_color	specular;
 
-	amb = rt->sc->amb;
-	color = ambient_light(get_obj_color(inter), amb.color, amb.ratio);
+	color = ambient_light(get_obj_color(inter),
+			rt->sc->amb.color, rt->sc->amb.ratio);
 	if (rt->sc->has_light && !is_shadowed(rt->sc, inter))
 	{
-		light = rt->sc->light;
-		light_dir = normalize(sub(light.coord, inter.point));
-		diffuse = color_scale(color_mult(get_obj_color(inter), light.color),
-				light.ratio * fmax(0.0, dot_product(inter.normal, light_dir))
-				/ 255.0);
+		light_dir = normalize(sub(rt->sc->light.coord, inter.point));
+		diffuse = compute_diffuse(inter, rt->sc->light, light_dir);
 		color = color_add(color, diffuse);
+		specular = compute_specular(rt, rt->sc->light, inter, light_dir);
+		color = color_add(color, specular);
 	}
 	return (color);
 }

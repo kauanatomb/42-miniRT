@@ -6,7 +6,7 @@
 /*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/11/13 14:57:30 by falatrac         ###   ########.fr       */
+/*   Updated: 2025/11/14 15:13:22 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define E 101
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
+# define SHININESS 64 //32 plastic 128 metal
 
 int		print_error(char *error_message);
 void	clean_rt_scene(t_rt *rt);
