@@ -63,9 +63,8 @@ t_color	compute_light(t_rt *rt, t_inter inter)
 	{
 		light = rt->sc->light;
 		light_dir = normalize(sub(light.coord, inter.point));
-		diffuse = color_scale(color_mult(get_obj_color(inter), light.color),
-				light.ratio * fmax(0.0, dot_product(inter.normal, light_dir))
-				/ 255.0);
+		diffuse = color_scale(get_obj_color(inter), (light.ratio
+					* fmax(0.0, dot_product(inter.normal, light_dir))));
 		color = color_add(color, diffuse);
 	}
 	return (color);
