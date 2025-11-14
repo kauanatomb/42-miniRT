@@ -32,7 +32,7 @@
 # define E 101
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
-# define SHININESS 64 //32 plastic 128 metal
+# define SHININESS 64 // 32 plastic 128 metal
 
 int		print_error(char *error_message);
 void	clean_rt_scene(t_rt *rt);
