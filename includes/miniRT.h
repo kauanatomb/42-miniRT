@@ -6,7 +6,7 @@
 /*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/11/14 15:13:22 by falatrac         ###   ########.fr       */
+/*   Updated: 2025/11/14 19:14:39 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define E 101
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
+# define L_FORWARD   105  // 'i'
+# define L_BACKWARD  107  // 'k'
+# define L_LEFT      106  // 'j'
+# define L_RIGHT     108  // 'l'
+# define L_UP        117  // 'u'
+# define L_DOWN      111  // 'o' 
 # define SHININESS 64 //32 plastic 128 metal
 
 int		print_error(char *error_message);
@@ -77,5 +83,9 @@ t_color	color_add(t_color c1, t_color c2);
 int		inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp);
 t_color	color_scale(t_color c, float k);
 void	update_hit(float t, float *t_best, t_v3d *n_best, t_v3d *n_tmp);
+void	handle_light_keys(int keycode, t_rt *rt);
+void	handle_cam_translate(int keycode, t_rt *rt);
+void	handle_cam_rotate(int keycode, t_rt *rt);
+
 
 #endif

@@ -6,7 +6,7 @@
 #    By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/13 17:32:59 by ktombola          #+#    #+#              #
-#    Updated: 2025/11/14 18:26:34 by falatrac         ###   ########.fr        #
+#    Updated: 2025/11/14 19:11:46 by falatrac         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC_MAND  := src/main.c src/errors.c \
              src/intersections/closest.c src/intersections/utils.c \
              src/math/utils.c src/math/utils2.c \
              src/render/color.c src/render/color_cal.c \
-             src/render/light.c
+             src/render/light.c light_move.c
 
 OBJ_MAND  := $(SRC_MAND:.c=.o)
 
@@ -44,7 +44,7 @@ SRC_BONUS := src/main.c src/errors.c \
              src/intersections/closest.c src/intersections/utils.c \
              src/math/utils.c src/math/utils2.c \
              src/render/color.c src/render/color_cal.c \
-             src/render/light_bonus.c
+             src/render/light_bonus.c light_move.c
 
 OBJ_BONUS := $(SRC_BONUS:.c=.o)
 
