@@ -28,6 +28,7 @@ int	main(int argc, char **argv)
 	rt->win_h = WIN_H;
 	if (!file_parsing(argv[1], rt))
 		return (clean_rt_scene(rt), 1);
+	init_camera(&rt->sc->cam);
 	make_window(rt);
 	return (0);
 }

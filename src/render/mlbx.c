@@ -6,7 +6,7 @@
 /*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/11/07 14:26:12 by falatrac         ###   ########.fr       */
+/*   Updated: 2025/11/14 19:14:02 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	display(t_rt *rt)
 {
-	init_camera(&rt->sc->cam);
 	if (!launch_cam_rays(rt))
 		return (0);
 	mlx_put_image_to_window(rt->mlbx->mlx, rt->mlbx->mlx_win,
@@ -32,29 +31,14 @@ int	destroy(t_rt *rt)
 	return (0);
 }
 
-int	key_function(const int keycode, t_rt *rt)
+int	key_function(int keycode, t_rt *rt)
 {
-	t_camera	*cam;
-
-	cam = &rt->sc->cam;
 	if (keycode == ESC)
 		destroy(rt);
-	else if (keycode == W)
-		cam->coord = add(cam->coord, sc_mult(cam->forward, 5));
-	else if (keycode == S)
-		cam->coord = add(cam->coord, sc_mult(cam->forward, -5));
-	else if (keycode == A)
-		cam->coord = add(cam->coord, sc_mult(cam->right, -5));
-	else if (keycode == D)
-		cam->coord = add(cam->coord, sc_mult(cam->right, 5));
-	else if (keycode == Q)
-		cam->coord = add(cam->coord, sc_mult(cam->up, 5));
-	else if (keycode == E)
-		cam->coord = add(cam->coord, sc_mult(cam->up, -5));
-	else if (keycode == LEFT_ARROW)
-		cam->ori = rotate_y(cam->ori, -5 * M_PI / 180);
-	else if (keycode == RIGHT_ARROW)
-		cam->ori = rotate_y(cam->ori, 5 * M_PI / 180);
+	if (rt->sc->has_cam)
+		handle_cam_moviment(keycode, &rt->sc->cam);
+	if (rt->sc->has_light)
+		handle_light_movement(keycode, &rt->sc->light, &rt->sc->cam);
 	display(rt);
 	return (0);
 }
