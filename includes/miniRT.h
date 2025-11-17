@@ -30,6 +30,8 @@
 # define D 100
 # define Q 113
 # define E 101
+# define UP_ARROW 65362
+# define DOWN_ARROW 65364
 # define LEFT_ARROW 65361
 # define RIGHT_ARROW 65363
 # define L_FORWARD   105  // 'i'
@@ -75,7 +77,6 @@ float	cy_inter_body(t_cam_ray *ray, t_cylinder *cy, t_v3d *normal);
 t_color	get_obj_color(t_inter inter);
 int		rgb_to_int(t_color rgb);
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
-t_v3d	rotate_y(t_v3d v, float angle);
 float	cy_inter_cap(t_cam_ray *ray, t_cylinder *cy, bool top, t_v3d *normal);
 t_color	compute_light(t_rt *rt, t_inter inter);
 t_color	color_mult(t_color c1, t_color c2);
@@ -83,9 +84,8 @@ t_color	color_add(t_color c1, t_color c2);
 int		inter_object(t_cam_ray *ray, t_objects *obj, t_inter *tmp);
 t_color	color_scale(t_color c, float k);
 void	update_hit(float t, float *t_best, t_v3d *n_best, t_v3d *n_tmp);
-void	handle_light_keys(int keycode, t_rt *rt);
-void	handle_cam_translate(int keycode, t_rt *rt);
-void	handle_cam_rotate(int keycode, t_rt *rt);
-
+void	handle_light_movement(int keycode, t_light *l, t_camera *cam);
+void	handle_cam_moviment(int keycode, t_camera *cam);
+t_v3d	rotate_axis(t_v3d v, t_v3d axis, float angle);
 
 #endif

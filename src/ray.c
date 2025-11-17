@@ -57,14 +57,18 @@ void	init_camera(t_camera *cam)
 	cam->up = cross(cam->forward, cam->right);
 }
 
-t_v3d	rotate_y(t_v3d v, float angle)
+t_v3d	rotate_axis(t_v3d v, t_v3d axis, float angle)
 {
-	t_v3d	new;
+	float	c;
+	float	s;
+	t_v3d	a;
 
-	new.x = v.x * cos(angle) + v.z * sin(angle);
-	new.y = v.y;
-	new.z = -v.x * sin(angle) + v.z * cos(angle);
-	return (normalize(new));
+	c = cos(angle);
+	s = sin(angle);
+	a = normalize(axis);
+	return (add(add(sc_mult(v, c), sc_mult(cross(a, v), s)),
+			sc_mult(a, dot_product(a, v) * (1 - c))
+		));
 }
 
 int	launch_cam_rays(t_rt *rt)

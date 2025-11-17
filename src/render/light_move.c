@@ -12,60 +12,60 @@
 
 #include "miniRT.h"
 
-void	handle_light_keys(int keycode, t_rt *rt)
+void	translate(t_v3d *pos, t_v3d delta)
 {
-	t_light	*light;
-	t_v3d	move;
+	*pos = add(*pos, delta);
+}
 
-	light = &rt->sc->light;
-	move = (t_v3d){0, 0, 0};
+void	cam_yaw(t_camera *cam, float angle)
+{
+	cam->forward = rotate_axis(cam->forward, (t_v3d){0, 1, 0}, angle);
+	cam->right = rotate_axis(cam->right, (t_v3d){0, 1, 0}, angle);
+	cam->up = rotate_axis(cam->up, (t_v3d){0, 1, 0}, angle);
+}
+
+void	cam_pitch(t_camera *cam, float angle)
+{
+	cam->forward = rotate_axis(cam->forward, cam->right, angle);
+	cam->up = rotate_axis(cam->up, cam->right, angle);
+}
+
+void	handle_light_movement(int keycode, t_light *l, t_camera *cam)
+{
 	if (keycode == L_FORWARD)
-		move = sc_mult(rt->sc->cam.forward, 5);
+		translate(&l->coord, sc_mult(cam->forward, 5.0));
 	else if (keycode == L_BACKWARD)
-		move = sc_mult(rt->sc->cam.forward, -5);
-	else if (keycode == L_LEFT)
-		move = sc_mult(rt->sc->cam.right, -5);
+		translate(&l->coord, sc_mult(cam->forward, -5.0));
 	else if (keycode == L_RIGHT)
-		move = sc_mult(rt->sc->cam.right, 5);
+		translate(&l->coord, sc_mult(cam->right, 5.0));
+	else if (keycode == L_LEFT)
+		translate(&l->coord, sc_mult(cam->right, -5.0));
 	else if (keycode == L_UP)
-		move = sc_mult(rt->sc->cam.up, 5);
+		translate(&l->coord, sc_mult(cam->up, 5.0));
 	else if (keycode == L_DOWN)
-		move = sc_mult(rt->sc->cam.up, -5);
-	light->coord = add(light->coord, move);
+		translate(&l->coord, sc_mult(cam->up, -5.0));
 }
 
-void	handle_cam_translate(int keycode, t_rt *rt)
+void	handle_cam_moviment(int keycode, t_camera *cam)
 {
-	t_camera	*cam;
-
-	cam = &rt->sc->cam;
 	if (keycode == W)
-		cam->coord = add(cam->coord, sc_mult(cam->forward, 5));
+		translate(&cam->coord, sc_mult(cam->forward, 5));
 	else if (keycode == S)
-		cam->coord = add(cam->coord, sc_mult(cam->forward, -5));
+		translate(&cam->coord, sc_mult(cam->forward, -5));
 	else if (keycode == A)
-		cam->coord = add(cam->coord, sc_mult(cam->right, -5));
+		translate(&cam->coord, sc_mult(cam->right, -5));
 	else if (keycode == D)
-		cam->coord = add(cam->coord, sc_mult(cam->right, 5));
+		translate(&cam->coord, sc_mult(cam->right, 5));
 	else if (keycode == Q)
-		cam->coord = add(cam->coord, sc_mult(cam->up, 5));
+		translate(&cam->coord, sc_mult(cam->up, 5));
 	else if (keycode == E)
-		cam->coord = add(cam->coord, sc_mult(cam->up, -5));
-}
-
-void	handle_cam_rotate(int keycode, t_rt *rt)
-{
-	t_camera	*cam;
-
-	cam = &rt->sc->cam;
-	if (keycode == LEFT_ARROW)
-	{
-		cam->ori = rotate_y(cam->ori, -5 * M_PI / 180);
-		init_camera(cam);
-	}
+		translate(&cam->coord, sc_mult(cam->up, -5));
+	else if (keycode == UP_ARROW)
+		cam_pitch(cam, -5 * M_PI / 180);
+	else if (keycode == DOWN_ARROW)
+		cam_pitch(cam, 5 * M_PI / 180);
+	else if (keycode == LEFT_ARROW)
+		cam_yaw(cam, -5 * M_PI / 180);
 	else if (keycode == RIGHT_ARROW)
-	{
-		cam->ori = rotate_y(cam->ori, 5 * M_PI / 180);
-		init_camera(cam);
-	}
+		cam_yaw(cam, 5 * M_PI / 180);
 }
