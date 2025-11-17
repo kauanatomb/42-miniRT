@@ -97,5 +97,7 @@ int	file_parsing(char *file, t_rt *rt)
 		return (close(fd), 0);
 	if (close(fd) == -1)
 		return (print_error("Close file"));
+	if (!rt->sc->has_cam || !rt->sc->has_amb)
+		return (print_error("No camera or ambience light"));
 	return (1);
 }
