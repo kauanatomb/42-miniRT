@@ -6,7 +6,7 @@
 /*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/11/17 11:54:41 by falatrac         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:21:21 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define L_RIGHT     108  // 'l'
 # define L_UP        117  // 'u'
 # define L_DOWN      111  // 'o' 
-# define SHININESS 64 //32 plastic 128 metal
+# define SHININESS 60 //32 plastic 128 metal
 
 int		print_error(char *error_message);
 void	clean_rt_scene(t_rt *rt);
