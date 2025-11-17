@@ -30,7 +30,7 @@ SRC_MAND  := src/main.c src/errors.c \
              src/intersections/closest.c src/intersections/utils.c \
              src/math/utils.c src/math/utils2.c \
              src/render/color.c src/render/color_cal.c \
-             src/render/light.c light_move.c
+             src/render/light.c src/render/light_move.c
 
 OBJ_MAND  := $(SRC_MAND:.c=.o)
 
@@ -44,7 +44,7 @@ SRC_BONUS := src/main.c src/errors.c \
              src/intersections/closest.c src/intersections/utils.c \
              src/math/utils.c src/math/utils2.c \
              src/render/color.c src/render/color_cal.c \
-             src/render/light_bonus.c light_move.c
+             src/render/light_bonus.c src/render/light_move.c
 
 OBJ_BONUS := $(SRC_BONUS:.c=.o)
 
