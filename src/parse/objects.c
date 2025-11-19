@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   objects.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ktombola <ktombola@student.42.fr>          +#+  +:+       +#+        */
+/*   By: falatrac <falatrac@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 13:50:40 by ktombola          #+#    #+#             */
-/*   Updated: 2025/10/13 13:50:49 by ktombola         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:06:04 by falatrac         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	sphere_parsing(char *line, t_rt *rt)
 	obj->next = NULL;
 	if (!parse_coord(tab[1], &obj->fig.sp.coord))
 		return (free_tab(tab), free(obj), 0);
-	if (!parse_general(tab[2], &obj->fig.sp.r, 0))
+	if (!parse_general(tab[2], &obj->fig.sp.r, 2))
 		return (free_tab(tab), free(obj), 0);
 	if (!parse_color(tab[3], &obj->fig.sp.color))
 		return (free_tab(tab), free(obj), 0);
