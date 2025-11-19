@@ -60,6 +60,7 @@ int		cy_parsing(char *line, t_rt *rt);
 void	free_tab(char **tab);
 int		is_float(char *str);
 float	s_to_f(char *str);
+int		safe_float(char *s, float *out);
 void	add_obj_to_rt(t_rt *rt, t_objects *obj_created);
 int		make_window(t_rt *rt);
 void	init_camera(t_camera *cam);

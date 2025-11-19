@@ -26,7 +26,8 @@ int	parse_ratio(char *str, float *ratio)
 {
 	if (!is_float(str))
 		return (print_error("Invalid float format ratio"));
-	*ratio = s_to_f(str);
+	if (!safe_float(str, ratio))
+		return (0);
 	if (*ratio >= 0 && *ratio <= 1)
 		return (1);
 	else
@@ -64,9 +65,9 @@ int	parse_coord(char *str, t_v3d *coord)
 		return (free_tab(tab), print_error("Coordinates needs 3 values"));
 	if (!is_float(tab[0]) || !is_float(tab[1]) || !is_float(tab[2]))
 		return (print_error("Invalid float format coordinates"));
-	coord->x = s_to_f(tab[0]);
-	coord->y = s_to_f(tab[1]);
-	coord->z = s_to_f(tab[2]);
+	if (!safe_float(tab[0], &coord->x) || !safe_float(tab[1], &coord->y)
+		|| !safe_float(tab[2], &coord->z))
+		return (free_tab(tab), 0);
 	free_tab(tab);
 	return (1);
 }

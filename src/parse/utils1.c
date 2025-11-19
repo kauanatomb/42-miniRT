@@ -23,9 +23,9 @@ int	parse_vector(char *str, t_v3d *ori)
 		return (free_tab(tab), print_error("Orientation needs 3 values"));
 	if (!is_float(tab[0]) || !is_float(tab[1]) || !is_float(tab[2]))
 		return (free_tab(tab), print_error("Invalid float format orientation"));
-	ori->x = s_to_f(tab[0]);
-	ori->y = s_to_f(tab[1]);
-	ori->z = s_to_f(tab[2]);
+	if (!safe_float(tab[0], &ori->x) || !safe_float(tab[1], &ori->y)
+		|| !safe_float(tab[2], &ori->z))
+		return (free_tab(tab), 0);
 	free_tab(tab);
 	if (ori->x < -1 || ori->x > 1 || ori->y < -1 || ori->y > 1
 		|| ori->z < -1 || ori->z > 1)
@@ -40,7 +40,8 @@ int	parse_general(char *str, float *p, int i)
 {
 	if (!is_float(str))
 		return (print_error("Invalid float format"));
-	*p = s_to_f(str);
+	if (!safe_float(str, p))
+		return (0);
 	if (i == 1)
 	{
 		if (*p > 180 || *p < 0)
@@ -48,11 +49,8 @@ int	parse_general(char *str, float *p, int i)
 	}
 	else if (i == 2)
 		*p = *p / 2;
-	else
-	{
-		if (*p < 0)
-			return (print_error("Invalid diameter/height: cannot be negative"));
-	}
+	if (*p < 0)
+		return (print_error("Invalid diameter/height: cannot be negative"));
 	return (1);
 }
 

@@ -67,3 +67,26 @@ float	s_to_f(char *str)
 	fract *= sign;
 	return (res + fract);
 }
+
+int	safe_float(char *s, float *out)
+{
+	int		digits;
+	int		i;
+	float	v;
+
+	digits = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] >= '0' && s[i] <= '9')
+			digits++;
+		i++;
+	}
+	if (digits > 38)
+		return (print_error("Float overflow"));
+	v = s_to_f(s);
+	if (!isfinite(v))
+		return (print_error("Float overflow"));
+	*out = v;
+	return (1);
+}
